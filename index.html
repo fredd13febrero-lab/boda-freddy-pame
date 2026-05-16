@@ -1,0 +1,134 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Invitación de boda de Pame y Freddy">
+  <title>Pame & Freddy | Nuestra boda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Cómo publicar en GitHub Pages: subir esta carpeta al repo y activar Settings > Pages > Deploy from a branch (main / root). -->
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Pame & Freddy</div>
+    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <nav class="nav" id="main-nav">
+      <a href="#inicio">Inicio</a>
+      <a href="#nuestra-boda">Nuestra boda</a>
+      <a href="#itinerario">Itinerario</a>
+      <a href="#galeria">Galería</a>
+      <a href="#rsvp">Confirmar asistencia</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio" aria-label="Sección principal">
+      <!-- Dónde cambiar las fotos: reemplazar assets/foto-principal.jpg por tu imagen final -->
+      <img class="hero-bg" src="assets/foto-principal.jpg" alt="Pame y Freddy" onerror="this.style.display='none'; this.parentElement.classList.add('bg-fallback');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content reveal">
+        <p class="hero-subtitle">Nos casamos</p>
+        <h1>Pame & Freddy</h1>
+        <p class="hero-date">8 de agosto de 2026</p>
+        <p class="hero-location">Atuntaqui, Ecuador</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#rsvp">Confirmar asistencia</a>
+          <!-- Cómo cambiar el enlace de Google Maps: editar los href de Recepción e Iglesia -->
+          <a class="btn btn-outline" href="https://maps.app.goo.gl/cadU6hmyMFQy29JJ6" target="_blank" rel="noopener noreferrer">Recepción</a>
+          <a class="btn btn-outline" href="https://maps.app.goo.gl/xwZsn6Zmp7mx9aHf8" target="_blank" rel="noopener noreferrer">Iglesia</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="nuestra-boda">
+      <h2>Nuestra boda</h2>
+      <p class="romantic-text">Con mucha ilusión queremos compartir este día tan especial con las personas que más queremos. Será una alegría inmensa contar con tu presencia.</p>
+    </section>
+
+    <section class="section reveal" id="contador" aria-label="Contador regresivo">
+      <h2>Falta muy poco</h2>
+      <div class="countdown" role="timer" aria-live="polite">
+        <div class="count-item"><span id="days">00</span><small>Días</small></div>
+        <div class="count-item"><span id="hours">00</span><small>Horas</small></div>
+        <div class="count-item"><span id="minutes">00</span><small>Minutos</small></div>
+        <div class="count-item"><span id="seconds">00</span><small>Segundos</small></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="evento">
+      <h2>Información del evento</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Fecha</h3>
+          <p>Sábado, 8 de agosto de 2026</p>
+        </article>
+        <article class="card">
+          <h3>Hora</h3>
+          <!-- Dónde cambiar la hora: reemplaza "Hora por confirmar" por la hora final -->
+          <p>Hora por confirmar</p>
+        </article>
+        <article class="card">
+          <h3>Lugar</h3>
+          <!-- Dónde cambiar la dirección exacta: reemplaza "Atuntaqui, Ecuador" por dirección completa cuando la tengas -->
+          <p>Atuntaqui, Ecuador</p>
+        </article>
+      </div>
+
+      <div class="map-actions">
+        <a class="btn btn-outline" href="https://maps.app.goo.gl/cadU6hmyMFQy29JJ6" target="_blank" rel="noopener noreferrer">Ver Recepción en Maps</a>
+        <a class="btn btn-outline" href="https://maps.app.goo.gl/xwZsn6Zmp7mx9aHf8" target="_blank" rel="noopener noreferrer">Ver Iglesia en Maps</a>
+      </div>
+    </section>
+
+    <section class="section reveal" id="itinerario">
+      <h2>Itinerario</h2>
+      <div class="timeline">
+        <div class="timeline-item"><h3>Ceremonia</h3><p>Hora por confirmar</p></div>
+        <div class="timeline-item"><h3>Sesión de fotos</h3><p>Hora por confirmar</p></div>
+        <div class="timeline-item"><h3>Recepción</h3><p>Hora por confirmar</p></div>
+        <div class="timeline-item"><h3>Cena</h3><p>Hora por confirmar</p></div>
+        <div class="timeline-item"><h3>Baile y celebración</h3><p>Hora por confirmar</p></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="dress-code">
+      <h2>Dress code</h2>
+      <p>Te sugerimos asistir con vestimenta cómoda, casual chic de verano. Pronto compartiremos más detalles.</p>
+      <div class="dress-placeholder">Espacio reservado para fotos de vestimenta</div>
+    </section>
+
+    <section class="section reveal" id="galeria">
+      <h2>Galería</h2>
+      <div class="gallery">
+        <!-- Dónde cambiar las fotos: reemplazar assets/foto-1.jpg o agregar más imágenes dentro de .gallery -->
+        <figure class="gallery-item">
+          <img src="assets/foto-1.jpg" alt="Recuerdo de Pame y Freddy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+          <figcaption>Pame & Freddy</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section reveal" id="rsvp">
+      <h2>Confirma tu asistencia</h2>
+      <p>Por favor confirma tu asistencia para ayudarnos con la organización.</p>
+      <!-- Dónde pegar el iframe o enlace de Google Forms: reemplazar el bloque .rsvp-placeholder por tu iframe de Google Forms -->
+      <!-- Ejemplo: <iframe src="AQUI_TU_URL_DE_GOOGLE_FORMS" width="100%" height="760" frameborder="0">Cargando…</iframe> -->
+      <div class="rsvp-placeholder">Formulario de confirmación próximamente</div>
+    </section>
+
+    <section class="section reveal" id="calendar">
+      <h2>Guarda la fecha</h2>
+      <a class="btn btn-primary" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda%20de%20Freddy%20y%20Pame&dates=20260808T150000/20260809T000000&location=Atuntaqui%2C%20Ecuador&details=Celebraci%C3%B3n%20de%20boda%20de%20Freddy%20y%20Pame" target="_blank" rel="noopener noreferrer">Agregar al calendario</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Gracias por ser parte de nuestra historia. Con cariño, Pame & Freddy.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -297,6 +297,90 @@ p {
   padding: 1rem;
 }
 
+.rsvp-form {
+  margin-top: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.form-field label {
+  font-weight: 600;
+  color: var(--earth);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  border: 1px solid rgba(123, 101, 80, 0.3);
+  border-radius: 12px;
+  padding: 0.72rem 0.8rem;
+  font-family: "Montserrat", sans-serif;
+  color: var(--text-main);
+  background: #fffcf7;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--soft-gold);
+  box-shadow: 0 0 0 3px rgba(199, 168, 107, 0.16);
+}
+
+.form-note {
+  margin: 0.8rem 0 0.4rem;
+  font-size: 0.92rem;
+}
+
+.form-feedback {
+  min-height: 1.4rem;
+  margin: 0.2rem 0 0.8rem;
+  font-weight: 600;
+}
+
+.form-feedback.success {
+  color: #2f6c3b;
+}
+
+.form-feedback.error {
+  color: #9f2f2f;
+}
+
+#rsvp-submit[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.supabase-help {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(123, 101, 80, 0.25);
+  padding-top: 0.8rem;
+}
+
+.supabase-help summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--earth);
+}
+
+.supabase-help pre {
+  margin-top: 0.6rem;
+  padding: 0.8rem;
+  border-radius: 12px;
+  background: #f7f1e6;
+  overflow: auto;
+}
+
 .gallery {
   display: grid;
   gap: 1rem;
@@ -375,6 +459,10 @@ p {
   }
 
   .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 

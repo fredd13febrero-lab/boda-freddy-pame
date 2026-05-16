@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10e648c2-9c82-442f-a375-350237d3598c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FD_wed/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FD_wed/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FD_wed.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boda-freddy-pame/assets/foto-1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boda-freddy-pame/assets/foto-2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boda-freddy-pame/assets/foto-3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boda-freddy-pame/assets/foto-4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boda-freddy-pame/assets/foto-principal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boda-freddy-pame/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boda-freddy-pame/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boda-freddy-pame/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +17,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "fredd13febrero-lab"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/fredd13febrero-lab/boda-freddy-pame.git",
+    "accountId": "7efba1fa-95c0-4245-93f4-906811d0bcef"
+  }
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -64,8 +68,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1778950000195</updated>
-      <workItem from="1778950001920" duration="3804000" />
+      <workItem from="1778950001920" duration="5921000" />
     </task>
+    <task id="LOCAL-00001" summary="2ndPAg">
+      <option name="closed" value="true" />
+      <created>1778953964380</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1778953964380</updated>
+    </task>
+    <task id="LOCAL-00002" summary="2">
+      <option name="closed" value="true" />
+      <created>1778953977823</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1778953977823</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -75,6 +96,9 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="2ndPAg" />
+    <MESSAGE value="2" />
+    <option name="LAST_COMMIT_MESSAGE" value="2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

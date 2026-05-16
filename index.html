@@ -114,9 +114,82 @@
     <section class="section reveal" id="rsvp">
       <h2>Confirma tu asistencia</h2>
       <p>Por favor confirma tu asistencia para ayudarnos con la organización.</p>
-      <!-- Dónde pegar el iframe o enlace de Google Forms: reemplazar el bloque .rsvp-placeholder por tu iframe de Google Forms -->
-      <!-- Ejemplo: <iframe src="AQUI_TU_URL_DE_GOOGLE_FORMS" width="100%" height="760" frameborder="0">Cargando…</iframe> -->
-      <div class="rsvp-placeholder">Formulario de confirmación próximamente</div>
+      <form id="rsvp-form" class="rsvp-form" novalidate>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="full_name">Nombre completo *</label>
+            <input id="full_name" name="full_name" type="text" required>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Correo electrónico</label>
+            <input id="email" name="email" type="email" inputmode="email">
+          </div>
+
+          <div class="form-field">
+            <label for="phone">Teléfono / WhatsApp</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel">
+          </div>
+
+          <div class="form-field">
+            <label for="attendance">¿Asistirá? *</label>
+            <select id="attendance" name="attendance" required>
+              <option value="">Selecciona una opción</option>
+              <option value="Sí asistiré">Sí asistiré</option>
+              <option value="No podré asistir">No podré asistir</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="guests_count">Número de acompañantes</label>
+            <input id="guests_count" name="guests_count" type="number" min="0" value="0">
+          </div>
+
+          <div class="form-field">
+            <label for="guest_names">Nombres de acompañantes</label>
+            <input id="guest_names" name="guest_names" type="text" placeholder="Ejemplo: Ana, Luis">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="food_restrictions">Restricciones alimenticias</label>
+          <textarea id="food_restrictions" name="food_restrictions" rows="3"></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="message">Mensaje para los novios</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+
+        <p class="form-note">Los campos marcados con * son obligatorios.</p>
+        <p id="rsvp-feedback" class="form-feedback" aria-live="polite"></p>
+        <button id="rsvp-submit" type="submit" class="btn btn-primary">Enviar confirmación</button>
+      </form>
+
+      <details class="supabase-help">
+        <summary>Configuración técnica de Supabase (tabla SQL)</summary>
+        <p>Ejecuta este SQL en Supabase SQL Editor para crear la tabla:</p>
+<pre><code>create table if not exists public.rsvp_confirmations (
+  id uuid primary key default gen_random_uuid(),
+  full_name text not null,
+  email text,
+  phone text,
+  attendance text not null,
+  guests_count integer default 0,
+  guest_names text,
+  food_restrictions text,
+  message text,
+  created_at timestamp with time zone default now()
+);
+
+alter table public.rsvp_confirmations enable row level security;
+
+create policy "Allow anon insert RSVP"
+on public.rsvp_confirmations
+for insert
+to anon
+with check (true);</code></pre>
+      </details>
     </section>
 
     <section class="section reveal" id="calendar">

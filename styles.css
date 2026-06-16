@@ -252,36 +252,84 @@ p {
 
 .timeline {
   position: relative;
-  margin-left: 0.5rem;
-  padding-left: 1.3rem;
+  display: grid;
+  gap: 0;
+  max-width: 720px;
+  margin: 1.2rem auto 0;
+  padding: 0.5rem 0;
 }
 
 .timeline::before {
   content: "";
   position: absolute;
-  left: 0.35rem;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--soft-gold) 0%, var(--olive) 100%);
+  left: calc(5.2rem + 0.9rem);
+  top: 1.25rem;
+  bottom: 1.25rem;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(199, 168, 107, 0.88) 8%,
+    rgba(154, 161, 123, 0.72) 92%,
+    transparent 100%
+  );
 }
 
 .timeline-item {
   position: relative;
-  margin-bottom: 1rem;
-  padding: 0.35rem 0 0.35rem 0.4rem;
+  display: grid;
+  grid-template-columns: 5.2rem 1.8rem minmax(0, 1fr);
+  align-items: center;
+  min-height: 4.35rem;
+  column-gap: 0;
+  padding: 0.35rem 0;
 }
 
 .timeline-item::before {
   content: "";
   position: absolute;
-  left: -1.15rem;
-  top: 0.7rem;
-  width: 10px;
-  height: 10px;
+  left: calc(5.2rem + 0.9rem);
+  top: 50%;
+  z-index: 1;
+  width: 0.7rem;
+  height: 0.7rem;
   border-radius: 50%;
   background: var(--soft-gold);
-  border: 2px solid #fff;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px rgba(199, 168, 107, 0.45);
+  transform: translate(-50%, -50%);
+}
+
+.timeline-item::after {
+  content: "";
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  width: 1.4rem;
+  height: 1px;
+  background: rgba(199, 168, 107, 0.58);
+}
+
+.timeline-item h3 {
+  grid-column: 3;
+  grid-row: 1;
+  margin: 0;
+  padding-left: 0.85rem;
+  font-size: clamp(1.35rem, 5vw, 1.8rem);
+  color: var(--text-main);
+}
+
+.timeline-item p {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+  margin: 0;
+  padding-right: 0.85rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.25rem, 5vw, 1.65rem);
+  font-weight: 600;
+  color: var(--earth);
+  font-variant-numeric: tabular-nums;
 }
 
 .dress-placeholder,
@@ -464,6 +512,31 @@ p {
 
   .form-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timeline::before {
+    left: 50%;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr 2.4rem 1fr;
+    min-height: 4.6rem;
+  }
+
+  .timeline-item::before {
+    left: 50%;
+  }
+
+  .timeline-item::after {
+    width: 1.8rem;
+  }
+
+  .timeline-item h3 {
+    padding-left: 1.1rem;
+  }
+
+  .timeline-item p {
+    padding-right: 1.1rem;
   }
 
   .section {

@@ -86,6 +86,55 @@ function setupMobileMenu() {
   });
 }
 
+function setupGalleryCarousel() {
+  const carousel = document.querySelector(".gallery-carousel");
+  if (!carousel) {
+    return;
+  }
+
+  const track = carousel.querySelector(".gallery");
+  const items = Array.from(carousel.querySelectorAll(".gallery-item"));
+  const prevBtn = carousel.querySelector(".gallery-arrow-prev");
+  const nextBtn = carousel.querySelector(".gallery-arrow-next");
+  let currentIndex = 0;
+
+  if (!track || !prevBtn || !nextBtn || items.length === 0) {
+    return;
+  }
+
+  function getVisibleItems() {
+    return window.matchMedia("(min-width: 760px)").matches ? 2 : 1;
+  }
+
+  function updateCarousel() {
+    const visibleItems = getVisibleItems();
+    const maxIndex = Math.max(items.length - visibleItems, 0);
+    currentIndex = Math.min(currentIndex, maxIndex);
+
+    const itemWidth = items[0].getBoundingClientRect().width;
+    const gap = Number.parseFloat(window.getComputedStyle(track).columnGap || "0");
+    const offset = currentIndex * (itemWidth + gap);
+
+    track.style.transform = `translateX(-${offset}px)`;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= maxIndex;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    currentIndex = Math.max(currentIndex - getVisibleItems(), 0);
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    const maxIndex = Math.max(items.length - getVisibleItems(), 0);
+    currentIndex = Math.min(currentIndex + getVisibleItems(), maxIndex);
+    updateCarousel();
+  });
+
+  window.addEventListener("resize", updateCarousel);
+  updateCarousel();
+}
+
 function setFeedback(message, type) {
   const feedbackEl = document.getElementById("rsvp-feedback");
   if (!feedbackEl) {
@@ -360,5 +409,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(updateCountdown, 1000);
   setupRevealAnimations();
   setupMobileMenu();
+  setupGalleryCarousel();
   setupRsvpForm();
 });

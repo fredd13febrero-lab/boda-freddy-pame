@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1781581874467</updated>
       <workItem from="1781581875619" duration="5665000" />
-      <workItem from="1781657676700" duration="1933000" />
+      <workItem from="1781657676700" duration="2901000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -123,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781658733258</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Base confirmacion">
+      <option name="closed" value="true" />
+      <created>1781659969069</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1781659969069</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,7 +147,8 @@
     <MESSAGE value="itinerario" />
     <MESSAGE value="supabase" />
     <MESSAGE value="Carga_supabase" />
-    <option name="LAST_COMMIT_MESSAGE" value="Carga_supabase" />
+    <MESSAGE value="Base confirmacion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Base confirmacion" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

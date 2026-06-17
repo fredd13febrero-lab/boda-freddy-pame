@@ -112,60 +112,66 @@
 
     <section class="section reveal" id="galeria">
       <h2>Galería</h2>
-      <div class="gallery">
-        <!-- Dónde cambiar las fotos: agregar o quitar imágenes dentro de .gallery -->
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.28%20PM%20(1).jpeg" alt="Recuerdo de Pame y Freddy 1" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.28%20PM.jpeg" alt="Recuerdo de Pame y Freddy 2" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.29%20PM%20(1).jpeg" alt="Recuerdo de Pame y Freddy 3" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.29%20PM%20(2).jpeg" alt="Recuerdo de Pame y Freddy 4" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.29%20PM%20(3).jpeg" alt="Recuerdo de Pame y Freddy 5" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM%20(1).jpeg" alt="Recuerdo de Pame y Freddy 6" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM%20(2).jpeg" alt="Recuerdo de Pame y Freddy 7" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM%20(3).jpeg" alt="Recuerdo de Pame y Freddy 8" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM%20(4).jpeg" alt="Recuerdo de Pame y Freddy 9" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM.jpeg" alt="Recuerdo de Pame y Freddy 10" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%209.09.35%20PM.jpeg" alt="Recuerdo de Pame y Freddy 11" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%209.10.21%20PM.jpeg" alt="Recuerdo de Pame y Freddy 12" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/WhatsApp%20Image%202026-06-15%20at%209.11.52%20PM.jpeg" alt="Recuerdo de Pame y Freddy 13" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
-          <figcaption>Pame & Freddy</figcaption>
-        </figure>
+      <div class="gallery-carousel" aria-label="Galería de fotos">
+        <button class="gallery-arrow gallery-arrow-prev" type="button" aria-label="Foto anterior">‹</button>
+        <div class="gallery-viewport">
+          <div class="gallery">
+            <!-- Dónde cambiar las fotos: agregar o quitar imágenes dentro de .gallery -->
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.28%20PM%20(1).jpeg" alt="Recuerdo de Pame y Freddy 1" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.28%20PM.jpeg" alt="Recuerdo de Pame y Freddy 2" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.29%20PM%20(1).jpeg" alt="Recuerdo de Pame y Freddy 3" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.29%20PM%20(2).jpeg" alt="Recuerdo de Pame y Freddy 4" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.29%20PM%20(3).jpeg" alt="Recuerdo de Pame y Freddy 5" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM%20(1).jpeg" alt="Recuerdo de Pame y Freddy 6" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM%20(2).jpeg" alt="Recuerdo de Pame y Freddy 7" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM%20(3).jpeg" alt="Recuerdo de Pame y Freddy 8" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM%20(4).jpeg" alt="Recuerdo de Pame y Freddy 9" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%208.56.30%20PM.jpeg" alt="Recuerdo de Pame y Freddy 10" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%209.09.35%20PM.jpeg" alt="Recuerdo de Pame y Freddy 11" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%209.10.21%20PM.jpeg" alt="Recuerdo de Pame y Freddy 12" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/WhatsApp%20Image%202026-06-15%20at%209.11.52%20PM.jpeg" alt="Recuerdo de Pame y Freddy 13" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+              <figcaption>Pame & Freddy</figcaption>
+            </figure>
+          </div>
+        </div>
+        <button class="gallery-arrow gallery-arrow-next" type="button" aria-label="Foto siguiente">›</button>
       </div>
     </section>
 

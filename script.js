@@ -103,7 +103,7 @@ function setupGalleryCarousel() {
   }
 
   function getVisibleItems() {
-    return window.matchMedia("(min-width: 760px)").matches ? 2 : 1;
+    return 1;
   }
 
   function updateCarousel() {

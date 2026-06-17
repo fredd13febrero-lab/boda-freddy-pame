@@ -37,8 +37,8 @@
         <div class="hero-actions">
           <a class="btn btn-primary" href="#rsvp">Confirmar asistencia</a>
           <!-- Cómo cambiar el enlace de Google Maps: editar los href de Recepción e Iglesia -->
-          <a class="btn btn-outline" href="https://maps.app.goo.gl/xwZsn6Zmp7mx9aHf8" target="_blank" rel="noopener noreferrer">Iglesia</a>
-          <a class="btn btn-outline" href="https://maps.app.goo.gl/cadU6hmyMFQy29JJ6" target="_blank" rel="noopener noreferrer">Recepcion</a>
+          <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Iglesia%20San%20Jos%C3%A9%20de%20Atuntaqui" target="_blank" rel="noopener noreferrer">Iglesia</a>
+          <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Rancho%20San%20Fernando%20Atuntaqui" target="_blank" rel="noopener noreferrer">Recepción</a>
         </div>
       </div>
     </section>
@@ -72,14 +72,19 @@
         </article>
         <article class="card">
           <h3>Lugar</h3>
-          <!-- Dónde cambiar la dirección exacta: reemplaza "Atuntaqui, Ecuador" por dirección completa cuando la tengas -->
-          <p>Atuntaqui, Ecuador</p>
+          <!-- Dónde cambiar la dirección exacta: actualiza los nombres o enlaces de Iglesia y Recepción -->
+          <p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Iglesia%20San%20Jos%C3%A9%20de%20Atuntaqui" target="_blank" rel="noopener noreferrer">Iglesia</a>: San José de Atuntaqui<br>
+            <span class="location-note">(Dale clic a Iglesia para conocer la ubicación)</span><br>
+            <a href="https://www.google.com/maps/search/?api=1&query=Rancho%20San%20Fernando%20Atuntaqui" target="_blank" rel="noopener noreferrer">Recepción</a>: Rancho San Fernando<br>
+            <span class="location-note">(Dale clic a Recepción para conocer la ubicación)</span>
+          </p>
         </article>
       </div>
 
       <div class="map-actions">
-        <a class="btn btn-outline" href="https://maps.app.goo.gl/xwZsn6Zmp7mx9aHf8" target="_blank" rel="noopener noreferrer">Iglesia</a>
-        <a class="btn btn-outline" href="https://maps.app.goo.gl/cadU6hmyMFQy29JJ6" target="_blank" rel="noopener noreferrer">Recepcion</a>
+        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Iglesia%20San%20Jos%C3%A9%20de%20Atuntaqui" target="_blank" rel="noopener noreferrer">Iglesia</a>
+        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Rancho%20San%20Fernando%20Atuntaqui" target="_blank" rel="noopener noreferrer">Recepción</a>
       </div>
     </section>
 
@@ -170,8 +175,11 @@
       <form id="rsvp-form" class="rsvp-form" novalidate>
         <div class="form-grid">
           <div class="form-field">
-            <label for="full_name">Nombre completo *</label>
-            <input id="full_name" name="full_name" type="text" required>
+            <label for="full_name">Nombre y Apellido *</label>
+            <div class="search-field">
+              <input id="full_name" name="full_name" type="text" required autocomplete="name">
+              <button id="guest-search" type="button" class="btn btn-secondary">Buscar</button>
+            </div>
           </div>
 
           <div class="form-field">
@@ -195,7 +203,7 @@
 
           <div class="form-field">
             <label for="guests_count">Número de acompañantes</label>
-            <input id="guests_count" name="guests_count" type="number" min="0" value="0">
+            <input id="guests_count" name="guests_count" type="number" min="0" value="0" readonly>
           </div>
 
           <div class="form-field">

@@ -63,7 +63,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1781581874467</updated>
-      <workItem from="1781581875619" duration="4597000" />
+      <workItem from="1781581875619" duration="5665000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -105,7 +105,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781585232034</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="supabase">
+      <option name="closed" value="true" />
+      <created>1781588729402</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1781588729402</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,7 +128,8 @@
     <MESSAGE value="photos galeria" />
     <MESSAGE value="i" />
     <MESSAGE value="itinerario" />
-    <option name="LAST_COMMIT_MESSAGE" value="itinerario" />
+    <MESSAGE value="supabase" />
+    <option name="LAST_COMMIT_MESSAGE" value="supabase" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

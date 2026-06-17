@@ -328,6 +328,7 @@ function setupRsvpForm() {
 
   function renderCompanions(guestNames, allowedGuestCount) {
     guestNamesList.innerHTML = "";
+    console.log("Renderizando acompañantes:", { guestNames, allowedGuestCount });
 
     if (allowedGuestCount === 0) {
       guestNamesList.innerHTML = '<p class="companion-empty">No tienes acompañantes asignados.</p>';
@@ -338,25 +339,20 @@ function setupRsvpForm() {
       ? guestNames
       : Array.from({ length: allowedGuestCount }, (_, index) => `Acompañante ${index + 1}`);
 
-    names.slice(0, allowedGuestCount).forEach((name, index) => {
-      const id = `companion_${index + 1}`;
-      const label = document.createElement("label");
-      label.className = "companion-option";
+    guestNamesList.innerHTML = names.map((name, index) => {
+      const safeName = name
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
 
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = id;
-      checkbox.name = "confirmed_companions";
-      checkbox.value = name;
-
-      const span = document.createElement("span");
-      span.textContent = name;
-
-      label.append(checkbox, span);
-      guestNamesList.append(label);
-    });
-
-    updateGuestFieldsState();
+      return `
+        <label class="companion-option" for="companion_${index + 1}">
+          <input type="checkbox" id="companion_${index + 1}" name="confirmed_companions" value="${safeName}">
+          <span>${safeName}</span>
+        </label>
+      `;
+    }).join("");
   }
 
   function clearGuestLookup() {
@@ -367,9 +363,9 @@ function setupRsvpForm() {
   }
 
   function updateGuestFieldsState() {
-    const canAttend = attendanceSelect.value === "Sí asistiré";
+    const cannotAttend = attendanceSelect.value === "No podré asistir";
     const allowedGuestCount = parseGuestsCount(guestCountInput.value);
-    setCompanionCheckboxesDisabled(!canAttend || allowedGuestCount === 0);
+    setCompanionCheckboxesDisabled(cannotAttend || allowedGuestCount === 0);
   }
 
   async function handleGuestSearch() {

@@ -116,18 +116,21 @@ function setupGalleryCarousel() {
     const offset = currentIndex * (itemWidth + gap);
 
     track.style.transform = `translateX(-${offset}px)`;
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex >= maxIndex;
+    prevBtn.disabled = items.length <= visibleItems;
+    nextBtn.disabled = items.length <= visibleItems;
   }
 
   prevBtn.addEventListener("click", () => {
-    currentIndex = Math.max(currentIndex - getVisibleItems(), 0);
+    const visibleItems = getVisibleItems();
+    const maxIndex = Math.max(items.length - visibleItems, 0);
+    currentIndex = currentIndex === 0 ? maxIndex : Math.max(currentIndex - visibleItems, 0);
     updateCarousel();
   });
 
   nextBtn.addEventListener("click", () => {
-    const maxIndex = Math.max(items.length - getVisibleItems(), 0);
-    currentIndex = Math.min(currentIndex + getVisibleItems(), maxIndex);
+    const visibleItems = getVisibleItems();
+    const maxIndex = Math.max(items.length - visibleItems, 0);
+    currentIndex = currentIndex >= maxIndex ? 0 : Math.min(currentIndex + visibleItems, maxIndex);
     updateCarousel();
   });
 

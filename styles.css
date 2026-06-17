@@ -488,12 +488,16 @@ p {
   overflow: hidden;
   border: 1px solid rgba(199, 168, 107, 0.3);
   background: #f4ecdf;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: min(72vh, 620px);
+  min-height: 460px;
 }
 
 .gallery-item img {
   width: 100%;
-  height: min(68vh, 520px);
-  min-height: 380px;
+  height: 100%;
+  min-height: 0;
   object-fit: contain;
   background: #f4ecdf;
 }
@@ -622,9 +626,9 @@ p {
     grid-template-columns: 1fr;
   }
 
-  .gallery-item img {
-    height: min(62vh, 430px);
-    min-height: 300px;
+  .gallery-item {
+    height: min(64vh, 500px);
+    min-height: 360px;
   }
 
   .gallery-arrow {

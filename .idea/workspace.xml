@@ -62,7 +62,7 @@
       <option name="presentableId" value="Default" />
       <updated>1781581874467</updated>
       <workItem from="1781581875619" duration="5665000" />
-      <workItem from="1781657676700" duration="5273000" />
+      <workItem from="1781657676700" duration="5698000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -184,7 +184,31 @@
       <option name="project" value="LOCAL" />
       <updated>1781664848483</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fotos">
+      <option name="closed" value="true" />
+      <created>1781664880970</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1781664880970</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fotos1">
+      <option name="closed" value="true" />
+      <created>1781665043824</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1781665043824</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Tamano_foto">
+      <option name="closed" value="true" />
+      <created>1781665249582</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1781665249582</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,12 +228,14 @@
     <MESSAGE value="Base confirmacion" />
     <MESSAGE value="carrusel de fotos" />
     <MESSAGE value="carrusel" />
-    <MESSAGE value="fotos" />
     <MESSAGE value="fotos2" />
     <MESSAGE value="fotos3" />
     <MESSAGE value="foto predeterm" />
     <MESSAGE value="tamano" />
-    <option name="LAST_COMMIT_MESSAGE" value="tamano" />
+    <MESSAGE value="fotos" />
+    <MESSAGE value="fotos1" />
+    <MESSAGE value="Tamano_foto" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tamano_foto" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

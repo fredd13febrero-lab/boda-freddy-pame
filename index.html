@@ -211,6 +211,7 @@
     <section class="section reveal" id="rsvp">
       <h2>Confirma tu asistencia</h2>
       <p>Por favor confirma tu asistencia para ayudarnos con la organización.</p>
+      <p class="rsvp-instructions">*Ingresa tu nombre y apellido, da clic en buscar y selecciona cuál(es) acompañante(s) asignado(s) a tu pase sí asistirá.</p>
       <form id="rsvp-form" class="rsvp-form" novalidate>
         <div class="form-grid">
           <div class="form-field">
@@ -246,8 +247,10 @@
           </div>
 
           <div class="form-field">
-            <label for="guest_names">Nombres de acompañantes</label>
-            <input id="guest_names" name="guest_names" type="text" placeholder="Ejemplo: Ana, Luis">
+            <label>Acompañantes:</label>
+            <div id="guest_names" class="companion-list" aria-live="polite">
+              <p class="companion-empty">Busca tu invitación para ver tus acompañantes.</p>
+            </div>
           </div>
         </div>
 

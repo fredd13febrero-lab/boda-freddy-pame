@@ -103,7 +103,7 @@ function setupGalleryCarousel() {
   }
 
   function getVisibleItems() {
-    return 1;
+    return window.matchMedia("(min-width: 760px)").matches ? 2 : 1;
   }
 
   function updateCarousel() {
@@ -166,11 +166,14 @@ function parseGuestNames(value) {
     .filter(Boolean);
 }
 
-function validateRsvpForm(formData, selectedGuest) {
+function normalizeName(value) {
+  return value.trim().toLocaleLowerCase("es");
+}
+
+function validateRsvpForm(formData, selectedGuest, selectedCompanionNames) {
   const fullName = (formData.get("full_name") || "").toString().trim();
   const attendance = (formData.get("attendance") || "").toString().trim();
   const guestsCount = parseGuestsCount((formData.get("guests_count") || "0").toString());
-  const guestNames = parseGuestNames((formData.get("guest_names") || "").toString());
 
   if (!fullName) {
     return "Por favor ingresa tu nombre y apellido.";
@@ -184,11 +187,11 @@ function validateRsvpForm(formData, selectedGuest) {
     return "Por favor selecciona si asistirás.";
   }
 
-  if (guestsCount === 0 && guestNames.length > 0) {
+  if (guestsCount === 0 && selectedCompanionNames.length > 0) {
     return "No tienes acompañantes asignados para esta invitación.";
   }
 
-  if (attendance === "Sí asistiré" && guestNames.length > guestsCount) {
+  if (attendance === "Sí asistiré" && selectedCompanionNames.length > guestsCount) {
     return `Solo puedes registrar ${guestsCount} acompañante${guestsCount === 1 ? "" : "s"}. Separa cada nombre con coma.`;
   }
 
@@ -218,6 +221,34 @@ async function findWeddingGuest(fullName) {
   const guests = await response.json();
   console.log("Resultado búsqueda wedding_guests:", guests);
   return guests[0] || null;
+}
+
+async function findWeddingGuestByCompanionName(fullName) {
+  const params = new URLSearchParams({
+    select: "id,full_name,guest_names",
+    guest_names: `ilike.%${fullName}%`,
+    limit: "10"
+  });
+
+  console.log("Buscando nombre en acompañantes:", fullName);
+
+  const response = await fetch(`${WEDDING_GUESTS_ENDPOINT}?${params.toString()}`, {
+    method: "GET",
+    headers: SUPABASE_HEADERS
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error("Error Supabase al buscar acompañante:", errorText);
+    throw new Error(errorText || "No se pudo buscar el acompañante.");
+  }
+
+  const guests = await response.json();
+  console.log("Resultado búsqueda por acompañante:", guests);
+  return guests.find((guest) =>
+    parseGuestNames((guest.guest_names || "").toString())
+      .some((guestName) => normalizeName(guestName) === normalizeName(fullName))
+  ) || null;
 }
 
 async function hasExistingConfirmation(weddingGuestId) {
@@ -276,29 +307,69 @@ function setupRsvpForm() {
   const emailInput = document.getElementById("email");
   const attendanceSelect = document.getElementById("attendance");
   const guestCountInput = document.getElementById("guests_count");
-  const guestNamesInput = document.getElementById("guest_names");
+  const guestNamesList = document.getElementById("guest_names");
   let selectedGuest = null;
-  let guestNamesLocked = false;
 
-  if (!form || !submitBtn || !searchBtn || !fullNameInput || !phoneInput || !emailInput || !attendanceSelect || !guestCountInput || !guestNamesInput) {
+  if (!form || !submitBtn || !searchBtn || !fullNameInput || !phoneInput || !emailInput || !attendanceSelect || !guestCountInput || !guestNamesList) {
     return;
+  }
+
+  function getSelectedCompanionNames() {
+    return Array.from(guestNamesList.querySelectorAll('input[name="confirmed_companions"]:checked'))
+      .map((input) => input.value.trim())
+      .filter(Boolean);
+  }
+
+  function setCompanionCheckboxesDisabled(disabled) {
+    guestNamesList.querySelectorAll('input[name="confirmed_companions"]').forEach((input) => {
+      input.disabled = disabled;
+    });
+  }
+
+  function renderCompanions(guestNames, allowedGuestCount) {
+    guestNamesList.innerHTML = "";
+
+    if (allowedGuestCount === 0) {
+      guestNamesList.innerHTML = '<p class="companion-empty">No tienes acompañantes asignados.</p>';
+      return;
+    }
+
+    const names = guestNames.length
+      ? guestNames
+      : Array.from({ length: allowedGuestCount }, (_, index) => `Acompañante ${index + 1}`);
+
+    names.slice(0, allowedGuestCount).forEach((name, index) => {
+      const id = `companion_${index + 1}`;
+      const label = document.createElement("label");
+      label.className = "companion-option";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = id;
+      checkbox.name = "confirmed_companions";
+      checkbox.value = name;
+
+      const span = document.createElement("span");
+      span.textContent = name;
+
+      label.append(checkbox, span);
+      guestNamesList.append(label);
+    });
+
+    updateGuestFieldsState();
   }
 
   function clearGuestLookup() {
     selectedGuest = null;
-    guestNamesLocked = false;
     guestCountInput.value = "0";
-    guestNamesInput.value = "";
-    guestNamesInput.readOnly = false;
+    guestNamesList.innerHTML = '<p class="companion-empty">Busca tu invitación para ver tus acompañantes.</p>';
     submitBtn.disabled = true;
   }
 
   function updateGuestFieldsState() {
     const canAttend = attendanceSelect.value === "Sí asistiré";
     const allowedGuestCount = parseGuestsCount(guestCountInput.value);
-    guestNamesInput.disabled = !canAttend || allowedGuestCount === 0;
-    guestNamesInput.readOnly = canAttend && guestNamesLocked;
-    guestNamesInput.placeholder = allowedGuestCount === 0 ? "No aplica" : "Ejemplo: Juan Pérez, María Pérez";
+    setCompanionCheckboxesDisabled(!canAttend || allowedGuestCount === 0);
   }
 
   async function handleGuestSearch() {
@@ -317,25 +388,32 @@ function setupRsvpForm() {
     try {
       const guest = await findWeddingGuest(fullName);
       if (!guest) {
+        const companionGuest = await findWeddingGuestByCompanionName(fullName);
+        if (companionGuest) {
+          clearGuestLookup();
+          alert(`Usted está asignado al invitado ${companionGuest.full_name}, por favor buscar con ese nombre para confirmar.`);
+          setFeedback(`Usted está asignado al invitado ${companionGuest.full_name}, por favor buscar con ese nombre para confirmar.`, "error");
+          return;
+        }
+
         clearGuestLookup();
         setFeedback("No encontramos tu nombre en la lista de invitados.", "error");
         return;
       }
 
       const allowedGuestCount = parseGuestsCount(String(guest.allowed_guests_count || "0"));
-      const predefinedGuestNames = (guest.guest_names || "").toString().trim();
+      const predefinedGuestNames = parseGuestNames((guest.guest_names || "").toString());
 
       selectedGuest = {
         id: guest.id,
         full_name: guest.full_name,
         allowed_guests_count: allowedGuestCount
       };
-      guestNamesLocked = Boolean(predefinedGuestNames);
       fullNameInput.value = guest.full_name;
       phoneInput.value = guest.phone || "";
       emailInput.value = guest.email || "";
       guestCountInput.value = String(allowedGuestCount);
-      guestNamesInput.value = predefinedGuestNames;
+      renderCompanions(predefinedGuestNames, allowedGuestCount);
       updateGuestFieldsState();
       setFeedback("Invitación encontrada. Completa el resto de datos para confirmar.", "success");
     } catch (error) {
@@ -359,16 +437,13 @@ function setupRsvpForm() {
     setFeedback("", "");
 
     const formData = new FormData(form);
-    const validationError = validateRsvpForm(formData, selectedGuest);
+    const attendance = (formData.get("attendance") || "").toString().trim();
+    const guestNames = attendance === "Sí asistiré" ? getSelectedCompanionNames() : [];
+    const validationError = validateRsvpForm(formData, selectedGuest, guestNames);
     if (validationError) {
       setFeedback(validationError, "error");
       return;
     }
-
-    const attendance = (formData.get("attendance") || "").toString().trim();
-    const guestNames = attendance === "Sí asistiré"
-      ? parseGuestNames((formData.get("guest_names") || "").toString())
-      : [];
 
     const payload = {
       wedding_guest_id: selectedGuest.id,
@@ -388,6 +463,8 @@ function setupRsvpForm() {
     try {
       const alreadyConfirmed = await hasExistingConfirmation(selectedGuest.id);
       if (alreadyConfirmed) {
+        selectedGuest = null;
+        submitBtn.disabled = true;
         setFeedback("Ya hemos recibido tu confirmación anteriormente.", "error");
         return;
       }

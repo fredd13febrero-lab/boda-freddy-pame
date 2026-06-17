@@ -201,6 +201,10 @@ p {
   margin-bottom: 0.9rem;
 }
 
+#galeria {
+  width: min(1360px, calc(100% - 1rem));
+}
+
 .romantic-text {
   max-width: 70ch;
 }
@@ -490,8 +494,8 @@ p {
   background: #f4ecdf;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  height: min(72vh, 620px);
-  min-height: 460px;
+  height: min(82vh, 760px);
+  min-height: 560px;
 }
 
 .gallery-item img {
@@ -627,8 +631,8 @@ p {
   }
 
   .gallery-item {
-    height: min(64vh, 500px);
-    min-height: 360px;
+    height: min(76vh, 620px);
+    min-height: 460px;
   }
 
   .gallery-arrow {

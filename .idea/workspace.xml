@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.28 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +65,7 @@
       <option name="presentableId" value="Default" />
       <updated>1781581874467</updated>
       <workItem from="1781581875619" duration="5665000" />
-      <workItem from="1781657676700" duration="3975000" />
+      <workItem from="1781657676700" duration="4877000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -147,7 +147,31 @@
       <option name="project" value="LOCAL" />
       <updated>1781661325269</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fotos">
+      <option name="closed" value="true" />
+      <created>1781663658515</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1781663658515</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fotos2">
+      <option name="closed" value="true" />
+      <created>1781663698730</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1781663698730</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fotos3">
+      <option name="closed" value="true" />
+      <created>1781663838946</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1781663838946</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,7 +191,10 @@
     <MESSAGE value="Base confirmacion" />
     <MESSAGE value="carrusel de fotos" />
     <MESSAGE value="carrusel" />
-    <option name="LAST_COMMIT_MESSAGE" value="carrusel" />
+    <MESSAGE value="fotos" />
+    <MESSAGE value="fotos2" />
+    <MESSAGE value="fotos3" />
+    <option name="LAST_COMMIT_MESSAGE" value="fotos3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

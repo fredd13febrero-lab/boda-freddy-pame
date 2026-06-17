@@ -500,21 +500,6 @@ p {
   padding: 0.65rem 0.9rem;
 }
 
-.gallery-item.image-fallback {
-  min-height: 320px;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  background: linear-gradient(140deg, #f6efe2, #e9dcc9);
-}
-
-.gallery-item.image-fallback::before {
-  content: "Foto próximamente";
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.6rem;
-  color: var(--earth);
-}
-
 .gallery-arrow {
   position: absolute;
   top: 50%;

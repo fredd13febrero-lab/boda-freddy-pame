@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +66,8 @@
       <option name="presentableId" value="Default" />
       <updated>1781581874467</updated>
       <workItem from="1781581875619" duration="5665000" />
-      <workItem from="1781657676700" duration="8166000" />
+      <workItem from="1781657676700" duration="8437000" />
+      <workItem from="1781815549590" duration="1095000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -242,7 +245,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781671645205</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="intento2">
+      <option name="closed" value="true" />
+      <created>1781672092882</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1781672092882</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +284,8 @@
     <MESSAGE value="final hoy" />
     <MESSAGE value="botgones" />
     <MESSAGE value="cambios grandes en base" />
-    <option name="LAST_COMMIT_MESSAGE" value="cambios grandes en base" />
+    <MESSAGE value="intento2" />
+    <option name="LAST_COMMIT_MESSAGE" value="intento2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

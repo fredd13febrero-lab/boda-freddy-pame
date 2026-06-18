@@ -3,7 +3,6 @@
 // Supabase público (NO usar service_role key)
 const SUPABASE_URL = "https://pzamzvalrudhnaubwzpj.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB6YW16dmFscnVkaG5hdWJ3enBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NDAzMjcsImV4cCI6MjA5NDUxNjMyN30.dWHOm2PSH4pVR9EOCH8iq4pjCFPlt8PIq5lbh7iVrMo";
-const SUPABASE_ENDPOINT = "https://pzamzvalrudhnaubwzpj.supabase.co/rest/v1/rsvp_confirmations";
 const WEDDING_GUESTS_ENDPOINT = `${SUPABASE_URL}/rest/v1/wedding_guests`;
 const RSVP_CONFIRMATIONS_ENDPOINT = `${SUPABASE_URL}/rest/v1/rsvp_confirmations`;
 const SUPABASE_HEADERS = {
@@ -170,7 +169,22 @@ function normalizeName(value) {
   return value.trim().toLocaleLowerCase("es");
 }
 
-function validateRsvpForm(formData, selectedGuest, selectedCompanionNames) {
+function escapeHtml(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function logSupabasePolicyHint(response, bodyText) {
+  if (response.status === 401 || response.status === 403 || bodyText.toLowerCase().includes("row-level security")) {
+    console.error("Posible error de permisos/RLS en Supabase. Revisa las policies anon de SELECT/INSERT para wedding_guests y rsvp_confirmations.");
+  }
+}
+
+function validateRsvpForm(formData, selectedGuest, selectedCompanionNames, missingGenericNames) {
   const fullName = (formData.get("full_name") || "").toString().trim();
   const attendance = (formData.get("attendance") || "").toString().trim();
   const guestsCount = parseGuestsCount((formData.get("guests_count") || "0").toString());
@@ -187,12 +201,12 @@ function validateRsvpForm(formData, selectedGuest, selectedCompanionNames) {
     return "Por favor selecciona si asistirás.";
   }
 
-  if (guestsCount === 0 && selectedCompanionNames.length > 0) {
-    return "No tienes acompañantes asignados para esta invitación.";
+  if (missingGenericNames.length > 0) {
+    return "Por favor escribe el nombre de cada acompañante seleccionado.";
   }
 
   if (attendance === "Sí asistiré" && selectedCompanionNames.length > guestsCount) {
-    return `Solo puedes registrar ${guestsCount} acompañante${guestsCount === 1 ? "" : "s"}. Separa cada nombre con coma.`;
+    return `Solo puedes registrar ${guestsCount} acompañante${guestsCount === 1 ? "" : "s"}.`;
   }
 
   return "";
@@ -205,22 +219,24 @@ async function findWeddingGuest(fullName) {
     limit: "1"
   });
 
-  console.log("Buscando invitado en wedding_guests:", fullName);
+  const url = `${WEDDING_GUESTS_ENDPOINT}?${params.toString()}`;
+  console.log("URL búsqueda wedding_guests.full_name:", url);
 
-  const response = await fetch(`${WEDDING_GUESTS_ENDPOINT}?${params.toString()}`, {
+  const response = await fetch(url, {
     method: "GET",
     headers: SUPABASE_HEADERS
   });
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error("Error Supabase al buscar invitado:", errorText);
+    console.error("Error Supabase al buscar invitado:", response.status, response.statusText, errorText);
+    logSupabasePolicyHint(response, errorText);
     throw new Error(errorText || "No se pudo buscar el invitado.");
   }
 
   const guests = await response.json();
-  console.log("Resultado búsqueda wedding_guests:", guests);
-  return guests[0] || null;
+  console.log("Resultado búsqueda invitado principal:", guests);
+  return guests.find((guest) => normalizeName(guest.full_name || "") === normalizeName(fullName)) || null;
 }
 
 async function findWeddingGuestByCompanionName(fullName) {
@@ -230,21 +246,23 @@ async function findWeddingGuestByCompanionName(fullName) {
     limit: "10"
   });
 
-  console.log("Buscando nombre en acompañantes:", fullName);
+  const url = `${WEDDING_GUESTS_ENDPOINT}?${params.toString()}`;
+  console.log("URL búsqueda wedding_guests.guest_names:", url);
 
-  const response = await fetch(`${WEDDING_GUESTS_ENDPOINT}?${params.toString()}`, {
+  const response = await fetch(url, {
     method: "GET",
     headers: SUPABASE_HEADERS
   });
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error("Error Supabase al buscar acompañante:", errorText);
+    console.error("Error Supabase al buscar acompañante:", response.status, response.statusText, errorText);
+    logSupabasePolicyHint(response, errorText);
     throw new Error(errorText || "No se pudo buscar el acompañante.");
   }
 
   const guests = await response.json();
-  console.log("Resultado búsqueda por acompañante:", guests);
+  console.log("Resultado búsqueda en guest_names:", guests);
   return guests.find((guest) =>
     parseGuestNames((guest.guest_names || "").toString())
       .some((guestName) => normalizeName(guestName) === normalizeName(fullName))
@@ -260,14 +278,18 @@ async function hasExistingConfirmation(weddingGuestId) {
 
   console.log("Verificando confirmación existente:", weddingGuestId);
 
-  const response = await fetch(`${RSVP_CONFIRMATIONS_ENDPOINT}?${params.toString()}`, {
+  const url = `${RSVP_CONFIRMATIONS_ENDPOINT}?${params.toString()}`;
+  console.log("URL verificación duplicado por wedding_guest_id:", url);
+
+  const response = await fetch(url, {
     method: "GET",
     headers: SUPABASE_HEADERS
   });
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error("Error Supabase al verificar duplicados:", errorText);
+    console.error("Error Supabase al verificar duplicados:", response.status, response.statusText, errorText);
+    logSupabasePolicyHint(response, errorText);
     throw new Error(errorText || "No se pudo verificar la confirmación existente.");
   }
 
@@ -276,10 +298,47 @@ async function hasExistingConfirmation(weddingGuestId) {
   return confirmations.length > 0;
 }
 
-async function submitRsvp(payload) {
-  console.log("Insertando confirmación RSVP:", payload);
+async function findConfirmedCompanionDuplicate(companionNames) {
+  for (const companionName of companionNames) {
+    const params = new URLSearchParams({
+      select: "id,confirmed_guest_names",
+      confirmed_guest_names: `ilike.%${companionName}%`,
+      limit: "20"
+    });
+    const url = `${RSVP_CONFIRMATIONS_ENDPOINT}?${params.toString()}`;
+    console.log("URL verificación duplicado por acompañante:", url);
 
-  const response = await fetch(SUPABASE_ENDPOINT, {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: SUPABASE_HEADERS
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error Supabase al verificar acompañante duplicado:", response.status, response.statusText, errorText);
+      logSupabasePolicyHint(response, errorText);
+      throw new Error(errorText || "No se pudo verificar acompañantes duplicados.");
+    }
+
+    const confirmations = await response.json();
+    console.log("Confirmaciones encontradas para acompañante:", companionName, confirmations);
+    const duplicated = confirmations.some((confirmation) =>
+      parseGuestNames((confirmation.confirmed_guest_names || "").toString())
+        .some((confirmedName) => normalizeName(confirmedName) === normalizeName(companionName))
+    );
+
+    if (duplicated) {
+      return companionName;
+    }
+  }
+
+  return "";
+}
+
+async function submitRsvp(payload) {
+  console.log("Payload final RSVP antes de insertar:", payload);
+
+  const response = await fetch(RSVP_CONFIRMATIONS_ENDPOINT, {
     method: "POST",
     headers: {
       ...SUPABASE_HEADERS,
@@ -289,10 +348,18 @@ async function submitRsvp(payload) {
     body: JSON.stringify(payload)
   });
 
+  const responseText = await response.text();
+  console.log("Respuesta completa Supabase INSERT RSVP:", {
+    ok: response.ok,
+    status: response.status,
+    statusText: response.statusText,
+    body: responseText
+  });
+
   if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Error Supabase al insertar confirmación:", errorText);
-    throw new Error(errorText || "No se pudo registrar la confirmación.");
+    console.error("Error real Supabase al insertar confirmación:", response.status, response.statusText, responseText);
+    logSupabasePolicyHint(response, responseText);
+    throw new Error(responseText || "No se pudo registrar la confirmación.");
   }
 
   console.log("Confirmación RSVP guardada correctamente.");
@@ -314,15 +381,39 @@ function setupRsvpForm() {
     return;
   }
 
-  function getSelectedCompanionNames() {
-    return Array.from(guestNamesList.querySelectorAll('input[name="confirmed_companions"]:checked'))
-      .map((input) => input.value.trim())
-      .filter(Boolean);
+  function getSelectedCompanionData() {
+    const checkedCompanions = Array.from(guestNamesList.querySelectorAll('input[name="confirmed_companions"]:checked'));
+    const names = [];
+    const missingGenericNames = [];
+
+    checkedCompanions.forEach((checkbox) => {
+      if (checkbox.dataset.generic === "true") {
+        const textInput = document.getElementById(checkbox.dataset.inputId);
+        const genericName = textInput ? textInput.value.trim() : "";
+        if (!genericName) {
+          missingGenericNames.push(checkbox.value);
+          return;
+        }
+        names.push(genericName);
+        return;
+      }
+
+      names.push(checkbox.value.trim());
+    });
+
+    return {
+      names: names.filter(Boolean),
+      missingGenericNames
+    };
   }
 
   function setCompanionCheckboxesDisabled(disabled) {
     guestNamesList.querySelectorAll('input[name="confirmed_companions"]').forEach((input) => {
       input.disabled = disabled;
+    });
+    guestNamesList.querySelectorAll(".companion-name-input").forEach((input) => {
+      const checkbox = document.getElementById(input.dataset.checkboxId);
+      input.disabled = disabled || !checkbox || !checkbox.checked;
     });
   }
 
@@ -335,24 +426,43 @@ function setupRsvpForm() {
       return;
     }
 
-    const names = guestNames.length
-      ? guestNames
-      : Array.from({ length: allowedGuestCount }, (_, index) => `Acompañante ${index + 1}`);
+    if (guestNames.length) {
+      guestNamesList.innerHTML = guestNames.map((name, index) => {
+        const safeName = escapeHtml(name);
 
-    guestNamesList.innerHTML = names.map((name, index) => {
-      const safeName = name
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+        return `
+          <label class="companion-option" for="companion_${index + 1}">
+            <input type="checkbox" id="companion_${index + 1}" name="confirmed_companions" value="${safeName}">
+            <span>${safeName}</span>
+          </label>
+        `;
+      }).join("");
+      return;
+    }
 
+    guestNamesList.innerHTML = Array.from({ length: allowedGuestCount }, (_, index) => {
+      const number = index + 1;
       return `
-        <label class="companion-option" for="companion_${index + 1}">
-          <input type="checkbox" id="companion_${index + 1}" name="confirmed_companions" value="${safeName}">
-          <span>${safeName}</span>
+        <label class="companion-option companion-option-generic" for="companion_${number}">
+          <input type="checkbox" id="companion_${number}" name="confirmed_companions" value="Acompañante ${number}" data-generic="true" data-input-id="companion_name_${number}">
+          <span>Acompañante ${number}:</span>
+          <input class="companion-name-input" id="companion_name_${number}" data-checkbox-id="companion_${number}" type="text" placeholder="Nombre y apellido" disabled>
         </label>
       `;
     }).join("");
+
+    guestNamesList.querySelectorAll('input[name="confirmed_companions"][data-generic="true"]').forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        const textInput = document.getElementById(checkbox.dataset.inputId);
+        if (!textInput) {
+          return;
+        }
+        textInput.disabled = !checkbox.checked || attendanceSelect.value === "No podré asistir";
+        if (!checkbox.checked) {
+          textInput.value = "";
+        }
+      });
+    });
   }
 
   function clearGuestLookup() {
@@ -434,8 +544,11 @@ function setupRsvpForm() {
 
     const formData = new FormData(form);
     const attendance = (formData.get("attendance") || "").toString().trim();
-    const guestNames = attendance === "Sí asistiré" ? getSelectedCompanionNames() : [];
-    const validationError = validateRsvpForm(formData, selectedGuest, guestNames);
+    const selectedCompanionData = attendance === "Sí asistiré"
+      ? getSelectedCompanionData()
+      : { names: [], missingGenericNames: [] };
+    const guestNames = selectedCompanionData.names;
+    const validationError = validateRsvpForm(formData, selectedGuest, guestNames, selectedCompanionData.missingGenericNames);
     if (validationError) {
       setFeedback(validationError, "error");
       return;
@@ -461,7 +574,13 @@ function setupRsvpForm() {
       if (alreadyConfirmed) {
         selectedGuest = null;
         submitBtn.disabled = true;
-        setFeedback("Ya hemos recibido tu confirmación anteriormente.", "error");
+        setFeedback("Ya hemos recibido una confirmación para este pase.", "error");
+        return;
+      }
+
+      const duplicatedCompanionName = await findConfirmedCompanionDuplicate(guestNames);
+      if (duplicatedCompanionName) {
+        setFeedback(`El acompañante ${duplicatedCompanionName} ya fue confirmado anteriormente.`, "error");
         return;
       }
 

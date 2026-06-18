@@ -449,6 +449,10 @@ p {
   color: var(--text-main);
 }
 
+.companion-option-generic {
+  flex-wrap: wrap;
+}
+
 .companion-option input {
   flex: 0 0 auto;
   width: 1rem;
@@ -456,6 +460,14 @@ p {
   margin: 0;
   padding: 0;
   accent-color: var(--soft-gold);
+}
+
+.companion-option .companion-name-input {
+  flex: 1 1 180px;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  padding: 0.58rem 0.7rem;
 }
 
 .companion-empty {

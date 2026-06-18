@@ -269,17 +269,17 @@ async function findWeddingGuestByCompanionName(fullName) {
   ) || null;
 }
 
-async function hasExistingConfirmation(weddingGuestId) {
+async function hasExistingConfirmation(fullName) {
   const params = new URLSearchParams({
     select: "id",
-    wedding_guest_id: `eq.${weddingGuestId}`,
+    full_name: `ilike.${fullName}`,
     limit: "1"
   });
 
-  console.log("Verificando confirmación existente:", weddingGuestId);
+  console.log("Verificando confirmación existente por full_name:", fullName);
 
   const url = `${RSVP_CONFIRMATIONS_ENDPOINT}?${params.toString()}`;
-  console.log("URL verificación duplicado por wedding_guest_id:", url);
+  console.log("URL verificación duplicado por full_name:", url);
 
   const response = await fetch(url, {
     method: "GET",
@@ -298,68 +298,25 @@ async function hasExistingConfirmation(weddingGuestId) {
   return confirmations.length > 0;
 }
 
-async function findConfirmedCompanionDuplicate(companionNames) {
-  for (const companionName of companionNames) {
-    const params = new URLSearchParams({
-      select: "id,confirmed_guest_names",
-      confirmed_guest_names: `ilike.%${companionName}%`,
-      limit: "20"
-    });
-    const url = `${RSVP_CONFIRMATIONS_ENDPOINT}?${params.toString()}`;
-    console.log("URL verificación duplicado por acompañante:", url);
-
-    const response = await fetch(url, {
-      method: "GET",
-      headers: SUPABASE_HEADERS
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Error Supabase al verificar acompañante duplicado:", response.status, response.statusText, errorText);
-      logSupabasePolicyHint(response, errorText);
-      throw new Error(errorText || "No se pudo verificar acompañantes duplicados.");
-    }
-
-    const confirmations = await response.json();
-    console.log("Confirmaciones encontradas para acompañante:", companionName, confirmations);
-    const duplicated = confirmations.some((confirmation) =>
-      parseGuestNames((confirmation.confirmed_guest_names || "").toString())
-        .some((confirmedName) => normalizeName(confirmedName) === normalizeName(companionName))
-    );
-
-    if (duplicated) {
-      return companionName;
-    }
-  }
-
-  return "";
-}
-
 async function submitRsvp(payload) {
-  console.log("Payload final RSVP antes de insertar:", payload);
+  console.log("Payload enviado a Supabase:", payload);
 
-  const response = await fetch(RSVP_CONFIRMATIONS_ENDPOINT, {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/rsvp_confirmations`, {
     method: "POST",
     headers: {
-      ...SUPABASE_HEADERS,
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       "Content-Type": "application/json",
       Prefer: "return=minimal"
     },
     body: JSON.stringify(payload)
   });
 
-  const responseText = await response.text();
-  console.log("Respuesta completa Supabase INSERT RSVP:", {
-    ok: response.ok,
-    status: response.status,
-    statusText: response.statusText,
-    body: responseText
-  });
-
   if (!response.ok) {
-    console.error("Error real Supabase al insertar confirmación:", response.status, response.statusText, responseText);
-    logSupabasePolicyHint(response, responseText);
-    throw new Error(responseText || "No se pudo registrar la confirmación.");
+    const errorBody = await response.json();
+    console.error("Error real Supabase insert:", errorBody);
+    logSupabasePolicyHint(response, JSON.stringify(errorBody));
+    throw new Error(errorBody.message || "No se pudo registrar la confirmación.");
   }
 
   console.log("Confirmación RSVP guardada correctamente.");
@@ -554,14 +511,15 @@ function setupRsvpForm() {
       return;
     }
 
+    const selectedGuestCount = attendance === "Sí asistiré" ? guestNames.length : 0;
+    const selectedGuestNames = selectedGuestCount > 0 ? guestNames.join(", ") : null;
     const payload = {
-      wedding_guest_id: selectedGuest.id,
-      full_name: (formData.get("full_name") || "").toString().trim(),
-      phone: (formData.get("phone") || "").toString().trim() || null,
+      full_name: selectedGuest.full_name,
       email: (formData.get("email") || "").toString().trim() || null,
+      phone: (formData.get("phone") || "").toString().trim() || null,
       attendance,
-      confirmed_guests_count: attendance === "Sí asistiré" ? guestNames.length : 0,
-      confirmed_guest_names: guestNames.length ? guestNames.join(", ") : null,
+      guests_count: selectedGuestCount,
+      guest_names: selectedGuestNames,
       food_restrictions: (formData.get("food_restrictions") || "").toString().trim() || null,
       message: (formData.get("message") || "").toString().trim() || null
     };
@@ -570,7 +528,7 @@ function setupRsvpForm() {
     submitBtn.textContent = "Enviando...";
 
     try {
-      const alreadyConfirmed = await hasExistingConfirmation(selectedGuest.id);
+      const alreadyConfirmed = await hasExistingConfirmation(selectedGuest.full_name);
       if (alreadyConfirmed) {
         selectedGuest = null;
         submitBtn.disabled = true;
@@ -578,17 +536,15 @@ function setupRsvpForm() {
         return;
       }
 
-      const duplicatedCompanionName = await findConfirmedCompanionDuplicate(guestNames);
-      if (duplicatedCompanionName) {
-        setFeedback(`El acompañante ${duplicatedCompanionName} ya fue confirmado anteriormente.`, "error");
-        return;
-      }
-
       await submitRsvp(payload);
+      const allowedGuestCount = selectedGuest.allowed_guests_count;
       form.reset();
       clearGuestLookup();
       updateGuestFieldsState();
-      setFeedback("Gracias, tu confirmación fue registrada.", "success");
+      const updatedGuestCountMessage = attendance === "Sí asistiré" && selectedGuestCount < allowedGuestCount
+        ? ` Se ha actualizado su número de acompañantes a: ${selectedGuestCount}`
+        : "";
+      setFeedback(`Gracias, tu confirmación fue registrada.${updatedGuestCountMessage}`, "success");
     } catch (error) {
       setFeedback("Ocurrió un error al guardar tu confirmación. Inténtalo nuevamente.", "error");
       console.error(error);

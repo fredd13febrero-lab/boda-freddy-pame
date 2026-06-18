@@ -270,32 +270,29 @@ async function findWeddingGuestByCompanionName(fullName) {
 }
 
 async function hasExistingConfirmation(fullName) {
-  const params = new URLSearchParams({
-    select: "id",
-    full_name: `ilike.${fullName}`,
-    limit: "1"
-  });
-
   console.log("Verificando confirmación existente por full_name:", fullName);
-
-  const url = `${RSVP_CONFIRMATIONS_ENDPOINT}?${params.toString()}`;
+  const url = `${SUPABASE_URL}/rest/v1/rsvp_confirmations?select=id&full_name=ilike.${encodeURIComponent(fullName)}&limit=1`;
   console.log("URL verificación duplicado por full_name:", url);
 
   const response = await fetch(url, {
     method: "GET",
-    headers: SUPABASE_HEADERS
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      "Content-Type": "application/json"
+    }
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Error Supabase al verificar duplicados:", response.status, response.statusText, errorText);
-    logSupabasePolicyHint(response, errorText);
-    throw new Error(errorText || "No se pudo verificar la confirmación existente.");
+    console.error("Error Supabase al verificar duplicados:", response.status, data);
+    logSupabasePolicyHint(response, JSON.stringify(data));
+    throw new Error(JSON.stringify(data));
   }
 
-  const confirmations = await response.json();
-  console.log("Confirmaciones existentes:", confirmations);
-  return confirmations.length > 0;
+  console.log("Confirmaciones existentes:", data);
+  return data.length > 0;
 }
 
 async function submitRsvp(payload) {

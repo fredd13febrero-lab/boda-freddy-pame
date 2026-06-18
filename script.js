@@ -547,6 +547,7 @@ function setupRsvpForm() {
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Enviando...";
+    let confirmationWasUpdated = false;
 
     try {
       const existingConfirmation = await hasExistingConfirmation(selectedGuest.full_name);
@@ -558,6 +559,7 @@ function setupRsvpForm() {
         }
 
         await updateRsvp(existingConfirmation.id, payload);
+        confirmationWasUpdated = true;
       } else {
         await submitRsvp(payload);
       }
@@ -569,7 +571,10 @@ function setupRsvpForm() {
       const updatedGuestCountMessage = attendance === "Sí asistiré" && selectedGuestCount < allowedGuestCount
         ? ` Se ha actualizado su número de acompañantes a: ${selectedGuestCount}`
         : "";
-      setFeedback(`Gracias, tu confirmación fue registrada.${updatedGuestCountMessage}`, "success");
+      const successMessage = confirmationWasUpdated
+        ? "Gracias, tu confirmación fue actualizada."
+        : "Gracias, tu confirmación fue registrada.";
+      setFeedback(`${successMessage}${updatedGuestCountMessage}`, "success");
     } catch (error) {
       setFeedback("Ocurrió un error al guardar tu confirmación. Inténtalo nuevamente.", "error");
       console.error(error);

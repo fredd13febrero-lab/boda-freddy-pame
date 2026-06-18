@@ -292,7 +292,7 @@ async function hasExistingConfirmation(fullName) {
   }
 
   console.log("Confirmaciones existentes:", data);
-  return data.length > 0;
+  return data[0] || null;
 }
 
 async function submitRsvp(payload) {
@@ -317,6 +317,30 @@ async function submitRsvp(payload) {
   }
 
   console.log("Confirmación RSVP guardada correctamente.");
+}
+
+async function updateRsvp(confirmationId, payload) {
+  console.log("Payload enviado a Supabase para actualizar:", payload);
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/rsvp_confirmations?id=eq.${encodeURIComponent(confirmationId)}`, {
+    method: "PATCH",
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal"
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.json();
+    console.error("Error real Supabase update:", errorBody);
+    logSupabasePolicyHint(response, JSON.stringify(errorBody));
+    throw new Error(errorBody.message || "No se pudo actualizar la confirmación.");
+  }
+
+  console.log("Confirmación RSVP actualizada correctamente.");
 }
 
 function setupRsvpForm() {
@@ -525,15 +549,19 @@ function setupRsvpForm() {
     submitBtn.textContent = "Enviando...";
 
     try {
-      const alreadyConfirmed = await hasExistingConfirmation(selectedGuest.full_name);
-      if (alreadyConfirmed) {
-        selectedGuest = null;
-        submitBtn.disabled = true;
+      const existingConfirmation = await hasExistingConfirmation(selectedGuest.full_name);
+      if (existingConfirmation) {
         setFeedback("Ya hemos recibido una confirmación para este pase.", "error");
-        return;
+        const shouldOverwrite = window.confirm("Ya hemos recibido una confirmación para este pase. ¿Deseas confirmar de nuevo y sobrescribir la confirmación anterior?");
+        if (!shouldOverwrite) {
+          return;
+        }
+
+        await updateRsvp(existingConfirmation.id, payload);
+      } else {
+        await submitRsvp(payload);
       }
 
-      await submitRsvp(payload);
       const allowedGuestCount = selectedGuest.allowed_guests_count;
       form.reset();
       clearGuestLookup();

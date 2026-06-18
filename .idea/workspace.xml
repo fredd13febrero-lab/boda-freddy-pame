@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="" />
+    <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +65,7 @@
       <updated>1781581874467</updated>
       <workItem from="1781581875619" duration="5665000" />
       <workItem from="1781657676700" duration="8437000" />
-      <workItem from="1781815549590" duration="2737000" />
+      <workItem from="1781815549590" duration="3486000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -273,7 +275,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781817718174</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="carga correcta">
+      <option name="closed" value="true" />
+      <created>1781818822076</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1781818822076</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,7 +293,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Test commit" />
     <MESSAGE value="test2" />
     <MESSAGE value="photos galeria" />
     <MESSAGE value="i" />
@@ -308,7 +317,8 @@
     <MESSAGE value="cambios 1" />
     <MESSAGE value="1" />
     <MESSAGE value="Cambios en database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios en database" />
+    <MESSAGE value="carga correcta" />
+    <option name="LAST_COMMIT_MESSAGE" value="carga correcta" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

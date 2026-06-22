@@ -65,7 +65,7 @@
       <workItem from="1781657676700" duration="8437000" />
       <workItem from="1781815549590" duration="3940000" />
       <workItem from="1781820033753" duration="2000" />
-      <workItem from="1782092989729" duration="5177000" />
+      <workItem from="1782092989729" duration="5503000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -363,7 +363,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782100937154</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="regreso">
+      <option name="closed" value="true" />
+      <created>1782101509704</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1782101509704</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,7 +381,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="fotos2" />
     <MESSAGE value="fotos3" />
     <MESSAGE value="foto predeterm" />
     <MESSAGE value="tamano" />
@@ -398,7 +405,8 @@
     <MESSAGE value="Fotos y dresscode" />
     <MESSAGE value="cambios" />
     <MESSAGE value="Fotos orden final" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fotos orden final" />
+    <MESSAGE value="regreso" />
+    <option name="LAST_COMMIT_MESSAGE" value="regreso" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

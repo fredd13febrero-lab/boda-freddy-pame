@@ -92,17 +92,12 @@ function setupGalleryCarousel() {
   }
 
   const track = carousel.querySelector(".gallery");
+  const items = Array.from(carousel.querySelectorAll(".gallery-item"));
   const prevBtn = carousel.querySelector(".gallery-arrow-prev");
   const nextBtn = carousel.querySelector(".gallery-arrow-next");
   let currentIndex = 0;
 
-  if (!track || !prevBtn || !nextBtn) {
-    return;
-  }
-
-  sortGalleryItems(track);
-  const items = Array.from(track.querySelectorAll(".gallery-item"));
-  if (items.length === 0) {
+  if (!track || !prevBtn || !nextBtn || items.length === 0) {
     return;
   }
 
@@ -140,55 +135,6 @@ function setupGalleryCarousel() {
 
   window.addEventListener("resize", updateCarousel);
   updateCarousel();
-}
-
-function getGalleryImageNumber(item) {
-  const image = item.querySelector("img");
-  const src = image ? image.getAttribute("src") || "" : "";
-  const match = src.match(/\/(\d+)\.(?:jpe?g|png|webp)$/i);
-  return match ? Number.parseInt(match[1], 10) : null;
-}
-
-function sortGalleryItems(track) {
-  const items = Array.from(track.querySelectorAll(".gallery-item"));
-  items
-    .sort((first, second) => {
-      const firstNumber = getGalleryImageNumber(first);
-      const secondNumber = getGalleryImageNumber(second);
-
-      if (firstNumber === null && secondNumber === null) {
-        return 0;
-      }
-
-      if (firstNumber === null) {
-        return -1;
-      }
-
-      if (secondNumber === null) {
-        return 1;
-      }
-
-      return firstNumber - secondNumber;
-    })
-    .forEach((item) => {
-      const image = item.querySelector("img");
-      const imageNumber = getGalleryImageNumber(item);
-
-      if (image && imageNumber !== null) {
-        image.src = `assets/${imageNumber}.jpg`;
-        image.onerror = function handleGalleryImageError() {
-          if (!this.dataset.fallback) {
-            this.dataset.fallback = "true";
-            this.src = `assets/${imageNumber}.jpeg`;
-            return;
-          }
-
-          this.closest(".gallery-item").remove();
-        };
-      }
-
-      track.appendChild(item);
-    });
 }
 
 function setFeedback(message, type) {

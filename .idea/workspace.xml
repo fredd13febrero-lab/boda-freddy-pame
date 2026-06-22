@@ -6,6 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.28 PM (1).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.29 PM (1).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.29 PM (2).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.29 PM (3).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.30 PM (1).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.30 PM (2).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.30 PM (3).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.30 PM (4).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 8.56.30 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 9.01.50 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 9.09.35 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-15 at 9.11.52 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-16 at 8.57.49 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-16 at 8.57.51 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-16 at 8.57.54 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-16 at 9.08.34 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-16 at 9.30.42 PM (1).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-16 at 9.30.42 PM (2).jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-16 at 9.30.42 PM.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WhatsApp Image 2026-06-16 at 9.35.22 PM.jpeg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +87,7 @@
       <workItem from="1781657676700" duration="8437000" />
       <workItem from="1781815549590" duration="3940000" />
       <workItem from="1781820033753" duration="2000" />
-      <workItem from="1782092989729" duration="300000" />
+      <workItem from="1782092989729" duration="1574000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -301,7 +321,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781819941650</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Sobreescribir">
+      <option name="closed" value="true" />
+      <created>1782093747379</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1782093747379</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,7 +339,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="i" />
     <MESSAGE value="itinerario" />
     <MESSAGE value="supabase" />
     <MESSAGE value="Carga_supabase" />
@@ -336,7 +363,8 @@
     <MESSAGE value="carga correcta" />
     <MESSAGE value="DUPLICAODS" />
     <MESSAGE value="duplicados" />
-    <option name="LAST_COMMIT_MESSAGE" value="duplicados" />
+    <MESSAGE value="Sobreescribir" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sobreescribir" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

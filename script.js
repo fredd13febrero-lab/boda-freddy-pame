@@ -186,6 +186,7 @@ function logSupabasePolicyHint(response, bodyText) {
 
 function validateRsvpForm(formData, selectedGuest, selectedCompanionNames, missingGenericNames) {
   const fullName = (formData.get("full_name") || "").toString().trim();
+  const phone = (formData.get("phone") || "").toString().trim();
   const attendance = (formData.get("attendance") || "").toString().trim();
   const guestsCount = parseGuestsCount((formData.get("guests_count") || "0").toString());
 
@@ -199,6 +200,10 @@ function validateRsvpForm(formData, selectedGuest, selectedCompanionNames, missi
 
   if (!attendance) {
     return "Por favor selecciona si asistirás.";
+  }
+
+  if (!phone) {
+    return "Por favor confirma tu teléfono / WhatsApp.";
   }
 
   if (missingGenericNames.length > 0) {

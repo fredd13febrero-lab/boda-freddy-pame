@@ -98,6 +98,7 @@ p {
 .hero {
   position: relative;
   min-height: 88vh;
+  margin-bottom: 4.25rem;
   display: grid;
   place-items: center;
   text-align: center;
@@ -147,11 +148,16 @@ p {
 }
 
 .hero-actions {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.65rem;
-  margin-top: 1.2rem;
+  transform: translateY(100%);
 }
 
 .btn {
@@ -336,10 +342,24 @@ p {
 .timeline-item h3 {
   grid-column: 3;
   grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   margin: 0;
   padding-left: 0.85rem;
   font-size: clamp(1.35rem, 5vw, 1.8rem);
   color: var(--text-main);
+}
+
+.timeline-icon {
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
 .timeline-item p {

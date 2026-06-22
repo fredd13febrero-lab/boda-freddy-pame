@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +68,7 @@
       <workItem from="1781657676700" duration="8437000" />
       <workItem from="1781815549590" duration="3940000" />
       <workItem from="1781820033753" duration="2000" />
-      <workItem from="1782092989729" duration="2661000" />
+      <workItem from="1782092989729" duration="3714000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -317,7 +318,23 @@
       <option name="project" value="LOCAL" />
       <updated>1782097971462</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="fotos">
+      <option name="closed" value="true" />
+      <created>1782099022012</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1782099022012</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Cambios5">
+      <option name="closed" value="true" />
+      <created>1782099538667</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1782099538667</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +344,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="supabase" />
     <MESSAGE value="Carga_supabase" />
     <MESSAGE value="Base confirmacion" />
     <MESSAGE value="carrusel de fotos" />
@@ -336,7 +352,6 @@
     <MESSAGE value="fotos3" />
     <MESSAGE value="foto predeterm" />
     <MESSAGE value="tamano" />
-    <MESSAGE value="fotos" />
     <MESSAGE value="fotos1" />
     <MESSAGE value="Tamano_foto" />
     <MESSAGE value="finalhoy" />
@@ -352,7 +367,9 @@
     <MESSAGE value="duplicados" />
     <MESSAGE value="Sobreescribir" />
     <MESSAGE value="cambios peq" />
-    <option name="LAST_COMMIT_MESSAGE" value="cambios peq" />
+    <MESSAGE value="fotos" />
+    <MESSAGE value="Cambios5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

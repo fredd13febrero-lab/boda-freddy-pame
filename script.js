@@ -487,7 +487,7 @@ function setupRsvpForm() {
         }
 
         clearGuestLookup();
-        setFeedback("No encontramos tu nombre en la lista de invitados.", "error");
+        setFeedback("No encontramos tu nombre en la lista de invitados, prueba de otra manera, escríbelo como está en tú invitación.", "error");
         return;
       }
 
@@ -505,7 +505,7 @@ function setupRsvpForm() {
       guestCountInput.value = String(allowedGuestCount);
       renderCompanions(predefinedGuestNames, allowedGuestCount);
       updateGuestFieldsState();
-      setFeedback("Invitación encontrada. Completa el resto de datos para confirmar.", "success");
+      setFeedback("Completa los datos faltantes para confirmar.", "success");
     } catch (error) {
       setFeedback("Ocurrió un error al buscar tu invitación. Inténtalo nuevamente.", "error");
       console.error(error);

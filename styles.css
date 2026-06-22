@@ -286,6 +286,16 @@ p {
   padding: 0.5rem 0;
 }
 
+.itinerary-tagline {
+  max-width: 720px;
+  margin: -0.25rem auto 0;
+  color: var(--earth);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  font-weight: 600;
+  text-align: center;
+}
+
 .timeline::before {
   content: "";
   position: absolute;

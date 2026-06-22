@@ -98,7 +98,6 @@ p {
 .hero {
   position: relative;
   min-height: 88vh;
-  margin-bottom: 4.25rem;
   display: grid;
   place-items: center;
   text-align: center;
@@ -151,13 +150,12 @@ p {
   position: absolute;
   left: 1rem;
   right: 1rem;
-  bottom: 0;
+  bottom: 2rem;
   z-index: 2;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.65rem;
-  transform: translateY(100%);
 }
 
 .btn {

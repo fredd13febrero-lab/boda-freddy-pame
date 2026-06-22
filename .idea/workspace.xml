@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="" />
+    <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +65,9 @@
       <updated>1781581874467</updated>
       <workItem from="1781581875619" duration="5665000" />
       <workItem from="1781657676700" duration="8437000" />
-      <workItem from="1781815549590" duration="3865000" />
+      <workItem from="1781815549590" duration="3940000" />
+      <workItem from="1781820033753" duration="2000" />
+      <workItem from="1782092989729" duration="300000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -289,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781819702796</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="duplicados">
+      <option name="closed" value="true" />
+      <created>1781819941650</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1781819941650</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +311,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="photos galeria" />
     <MESSAGE value="i" />
     <MESSAGE value="itinerario" />
     <MESSAGE value="supabase" />
@@ -324,7 +335,8 @@
     <MESSAGE value="Cambios en database" />
     <MESSAGE value="carga correcta" />
     <MESSAGE value="DUPLICAODS" />
-    <option name="LAST_COMMIT_MESSAGE" value="DUPLICAODS" />
+    <MESSAGE value="duplicados" />
+    <option name="LAST_COMMIT_MESSAGE" value="duplicados" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

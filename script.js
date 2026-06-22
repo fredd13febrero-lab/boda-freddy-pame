@@ -270,33 +270,34 @@ async function findWeddingGuestByCompanionName(fullName) {
 }
 
 async function hasExistingConfirmation(fullName) {
-  console.log("Verificando confirmación existente por full_name:", fullName);
-  const url = `${SUPABASE_URL}/rest/v1/rsvp_confirmations?select=id&full_name=ilike.${encodeURIComponent(fullName)}&limit=1`;
-  console.log("URL verificación duplicado por full_name:", url);
+  const url = `${SUPABASE_URL}/rest/v1/rsvp_confirmations?select=id,full_name&full_name=eq.${encodeURIComponent(fullName)}&limit=1`;
+  console.log("Verificando confirmación existente:", url);
 
   const response = await fetch(url, {
     method: "GET",
     headers: {
       apikey: SUPABASE_ANON_KEY,
       Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Prefer: "return=minimal"
     }
   });
 
   const data = await response.json();
 
   if (!response.ok) {
-    console.error("Error Supabase al verificar duplicados:", response.status, data);
+    console.error("Error Supabase:", data);
     logSupabasePolicyHint(response, JSON.stringify(data));
     throw new Error(JSON.stringify(data));
   }
 
-  console.log("Confirmaciones existentes:", data);
-  return data[0] || null;
+  const existingConfirmation = data[0] || null;
+  console.log("Confirmación existente:", existingConfirmation);
+  return existingConfirmation;
 }
 
 async function submitRsvp(payload) {
-  console.log("Payload enviado a Supabase:", payload);
+  console.log("Payload insert:", payload);
 
   const response = await fetch(`${SUPABASE_URL}/rest/v1/rsvp_confirmations`, {
     method: "POST",
@@ -311,7 +312,7 @@ async function submitRsvp(payload) {
 
   if (!response.ok) {
     const errorBody = await response.json();
-    console.error("Error real Supabase insert:", errorBody);
+    console.error("Error Supabase:", errorBody);
     logSupabasePolicyHint(response, JSON.stringify(errorBody));
     throw new Error(errorBody.message || "No se pudo registrar la confirmación.");
   }
@@ -320,7 +321,7 @@ async function submitRsvp(payload) {
 }
 
 async function updateRsvp(confirmationId, payload) {
-  console.log("Payload enviado a Supabase para actualizar:", payload);
+  console.log("Payload update:", payload);
 
   const response = await fetch(`${SUPABASE_URL}/rest/v1/rsvp_confirmations?id=eq.${encodeURIComponent(confirmationId)}`, {
     method: "PATCH",
@@ -335,7 +336,7 @@ async function updateRsvp(confirmationId, payload) {
 
   if (!response.ok) {
     const errorBody = await response.json();
-    console.error("Error real Supabase update:", errorBody);
+    console.error("Error Supabase:", errorBody);
     logSupabasePolicyHint(response, JSON.stringify(errorBody));
     throw new Error(errorBody.message || "No se pudo actualizar la confirmación.");
   }
@@ -534,8 +535,7 @@ function setupRsvpForm() {
 
     const selectedGuestCount = attendance === "Sí asistiré" ? guestNames.length : 0;
     const selectedGuestNames = selectedGuestCount > 0 ? guestNames.join(", ") : null;
-    const payload = {
-      full_name: selectedGuest.full_name,
+    const updatePayload = {
       email: (formData.get("email") || "").toString().trim() || null,
       phone: (formData.get("phone") || "").toString().trim() || null,
       attendance,
@@ -543,6 +543,10 @@ function setupRsvpForm() {
       guest_names: selectedGuestNames,
       food_restrictions: (formData.get("food_restrictions") || "").toString().trim() || null,
       message: (formData.get("message") || "").toString().trim() || null
+    };
+    const insertPayload = {
+      full_name: selectedGuest.full_name,
+      ...updatePayload
     };
 
     submitBtn.disabled = true;
@@ -553,15 +557,16 @@ function setupRsvpForm() {
       const existingConfirmation = await hasExistingConfirmation(selectedGuest.full_name);
       if (existingConfirmation) {
         setFeedback("Ya hemos recibido una confirmación para este pase.", "error");
-        const shouldOverwrite = window.confirm("Ya hemos recibido una confirmación para este pase. ¿Deseas confirmar de nuevo y sobrescribir la confirmación anterior?");
+        const shouldOverwrite = window.confirm("Ya hemos recibido una confirmación para este pase. ¿Deseas actualizarla con la nueva información?");
         if (!shouldOverwrite) {
+          setFeedback("No se realizaron cambios.", "");
           return;
         }
 
-        await updateRsvp(existingConfirmation.id, payload);
+        await updateRsvp(existingConfirmation.id, updatePayload);
         confirmationWasUpdated = true;
       } else {
-        await submitRsvp(payload);
+        await submitRsvp(insertPayload);
       }
 
       const allowedGuestCount = selectedGuest.allowed_guests_count;

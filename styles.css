@@ -396,11 +396,19 @@ p {
 }
 
 .dress-note {
-  margin-top: 0.6rem;
+  margin-top: 0.75rem;
+  border-left: 3px solid var(--soft-gold);
+  padding: 0.75rem 0.9rem;
+  border-radius: 0 12px 12px 0;
+  background: rgba(251, 247, 240, 0.82);
+  color: rgba(62, 51, 42, 0.86);
+  font-size: 0.98rem;
+  line-height: 1.55;
 }
 
 .dress-code-image {
-  margin: 1rem 0 0;
+  width: min(100%, 520px);
+  margin: 1.1rem auto 0;
   overflow: hidden;
   border-radius: var(--radius-md);
   background: #fbf7f0;

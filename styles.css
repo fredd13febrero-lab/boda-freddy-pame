@@ -5,8 +5,11 @@
   --soft-gold: #c7a86b;
   --olive: #9aa17b;
   --earth: #7b6550;
+  --deep-earth: #352820;
   --text-main: #3e332a;
-  --shadow: 0 10px 30px rgba(70, 52, 38, 0.12);
+  --text-muted: rgba(62, 51, 42, 0.72);
+  --line: rgba(199, 168, 107, 0.28);
+  --shadow: 0 14px 36px rgba(70, 52, 38, 0.12);
   --radius-lg: 24px;
   --radius-md: 16px;
 }
@@ -23,7 +26,9 @@ body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
   color: var(--text-main);
-  background: linear-gradient(180deg, #fbf8f3 0%, #f4eee4 100%);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(244, 238, 228, 0.94) 100%),
+    #f7f2e8;
 }
 
 img {
@@ -41,6 +46,7 @@ h3 {
 
 p {
   margin: 0;
+  line-height: 1.7;
 }
 
 .topbar {
@@ -93,6 +99,9 @@ p {
   text-decoration: none;
   color: var(--text-main);
   padding: 0.35rem 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .hero {
@@ -164,6 +173,7 @@ p {
   border-radius: 999px;
   padding: 0.72rem 1.2rem;
   font-weight: 600;
+  line-height: 1.2;
   border: 1px solid transparent;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
@@ -174,8 +184,9 @@ p {
 }
 
 .btn-primary {
-  background: var(--soft-gold);
+  background: linear-gradient(135deg, #d8bd7d 0%, var(--soft-gold) 100%);
   color: #2d2218;
+  box-shadow: 0 10px 22px rgba(123, 101, 80, 0.18);
 }
 
 .btn-secondary {
@@ -191,18 +202,34 @@ p {
 
 .section {
   width: min(1080px, calc(100% - 2rem));
-  margin: 2.5rem auto;
+  margin: 2rem auto;
   background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(199, 168, 107, 0.25);
+  border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
-  padding: 1.5rem 1.2rem;
+  padding: 1.65rem 1.2rem;
 }
 
 .section h2 {
   font-size: clamp(2rem, 5vw, 3rem);
   color: var(--earth);
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0;
+}
+
+.section-kicker {
+  margin-bottom: 0.35rem;
+  color: var(--olive);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.section-intro {
+  max-width: 66ch;
+  color: var(--text-muted);
 }
 
 #galeria {
@@ -211,6 +238,8 @@ p {
 
 .romantic-text {
   max-width: 70ch;
+  color: var(--text-muted);
+  font-size: 1.02rem;
 }
 
 .countdown {
@@ -223,6 +252,7 @@ p {
   text-align: center;
   background: var(--cream);
   border-radius: var(--radius-md);
+  border: 1px solid rgba(199, 168, 107, 0.2);
   padding: 1rem 0.75rem;
 }
 
@@ -242,7 +272,7 @@ p {
   border: 1px solid rgba(154, 161, 123, 0.4);
   border-radius: var(--radius-md);
   background: linear-gradient(180deg, #fff 0%, #faf6ef 100%);
-  padding: 1rem;
+  padding: 1.1rem;
   transition: transform 0.25s ease;
 }
 
@@ -257,18 +287,11 @@ p {
   text-underline-offset: 0.18em;
 }
 
-.location-note {
-  display: inline-block;
-  margin: 0.25rem 0 0.55rem;
-  font-size: 0.88rem;
-  color: rgba(62, 51, 42, 0.72);
-}
-
 .map-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
-  margin-top: 1rem;
+  margin-top: 1.1rem;
 }
 
 .map-actions .btn-outline {
@@ -289,7 +312,7 @@ p {
 .itinerary-tagline {
   max-width: 720px;
   margin: -0.25rem auto 0;
-  color: var(--earth);
+  color: var(--deep-earth);
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(1.35rem, 4vw, 1.85rem);
   font-weight: 600;
@@ -401,7 +424,7 @@ p {
   padding: 0.75rem 0.9rem;
   border-radius: 0 12px 12px 0;
   background: rgba(251, 247, 240, 0.82);
-  color: rgba(62, 51, 42, 0.86);
+  color: var(--text-muted);
   font-size: 0.98rem;
   line-height: 1.55;
 }
@@ -413,6 +436,7 @@ p {
   margin: 2rem 0;
   overflow: hidden;
   border-radius: var(--radius-md);
+  border: 1px solid var(--line);
   background: #fbf7f0;
 }
 
@@ -424,14 +448,22 @@ p {
 }
 
 .rsvp-form {
-  margin-top: 1rem;
+  margin-top: 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #fffdf9 0%, #fbf7f0 100%);
+  padding: 1rem;
 }
 
 .rsvp-instructions {
-  margin-top: 0.5rem;
-  color: rgba(62, 51, 42, 0.78);
+  margin-top: 0.75rem;
+  border-left: 3px solid var(--olive);
+  border-radius: 0 12px 12px 0;
+  background: rgba(154, 161, 123, 0.1);
+  color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.5;
+  padding: 0.75rem 0.9rem;
 }
 
 .form-grid {
@@ -458,6 +490,7 @@ p {
 .form-field label {
   font-weight: 600;
   color: var(--earth);
+  font-size: 0.92rem;
 }
 
 .form-field input,
@@ -469,7 +502,7 @@ p {
   padding: 0.72rem 0.8rem;
   font-family: "Montserrat", sans-serif;
   color: var(--text-main);
-  background: #fffcf7;
+  background: #fffefa;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -494,7 +527,7 @@ p {
   border: 1px solid rgba(123, 101, 80, 0.3);
   border-radius: 12px;
   padding: 0.72rem 0.8rem;
-  background: #fffcf7;
+  background: #fffefa;
 }
 
 .companion-option {
@@ -526,7 +559,7 @@ p {
 }
 
 .companion-empty {
-  color: rgba(62, 51, 42, 0.65);
+  color: var(--text-muted);
   font-size: 0.92rem;
 }
 
@@ -536,17 +569,29 @@ p {
 }
 
 .form-feedback {
-  min-height: 1.4rem;
-  margin: 0.2rem 0 0.8rem;
+  min-height: 1.45rem;
+  margin: 0.2rem 0 0.85rem;
   font-weight: 600;
+  line-height: 1.45;
 }
 
 .form-feedback.success {
   color: #2f6c3b;
+  background: rgba(47, 108, 59, 0.08);
+  border-color: rgba(47, 108, 59, 0.18);
 }
 
 .form-feedback.error {
   color: #9f2f2f;
+  background: rgba(159, 47, 47, 0.08);
+  border-color: rgba(159, 47, 47, 0.18);
+}
+
+.form-feedback.success,
+.form-feedback.error {
+  border: 1px solid;
+  border-radius: 12px;
+  padding: 0.75rem 0.85rem;
 }
 
 #rsvp-submit[disabled] {
@@ -576,16 +621,17 @@ p {
 
 .gallery-carousel {
   position: relative;
-  margin-top: 1rem;
+  margin-top: 1.15rem;
 }
 
 .gallery-viewport {
   overflow: hidden;
+  border-radius: calc(var(--radius-md) + 2px);
 }
 
 .gallery {
   display: flex;
-  gap: 1rem;
+  gap: 1.15rem;
   transition: transform 0.35s ease;
   will-change: transform;
 }
@@ -595,12 +641,13 @@ p {
   margin: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid rgba(199, 168, 107, 0.3);
-  background: #f4ecdf;
+  border: 1px solid rgba(199, 168, 107, 0.38);
+  background: #f8f1e6;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   height: min(88vh, 920px);
   min-height: 680px;
+  box-shadow: 0 10px 26px rgba(70, 52, 38, 0.1);
 }
 
 .gallery-item img {
@@ -612,11 +659,15 @@ p {
   max-height: 100%;
   min-height: 0;
   object-fit: contain;
-  background: #f4ecdf;
+  background: #f8f1e6;
 }
 
 .gallery-item figcaption {
-  padding: 0.65rem 0.9rem;
+  border-top: 1px solid rgba(199, 168, 107, 0.22);
+  padding: 0.7rem 0.95rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .gallery-arrow {
@@ -656,10 +707,54 @@ p {
   right: -0.55rem;
 }
 
+.gallery-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.gallery-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(123, 101, 80, 0.28);
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-dot:hover {
+  transform: translateY(-1px);
+}
+
+.gallery-dot.active {
+  width: 1.45rem;
+  background: var(--soft-gold);
+}
+
 .footer {
   text-align: center;
-  padding: 1.5rem 1rem 2rem;
-  color: var(--earth);
+  margin-top: 3rem;
+  padding: 2.2rem 1rem 2.4rem;
+  color: rgba(255, 253, 249, 0.9);
+  background: linear-gradient(135deg, #3e332a 0%, #6d5846 100%);
+}
+
+.footer-names {
+  margin-bottom: 0.35rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.footer-date {
+  margin-top: 0.45rem;
+  color: rgba(255, 253, 249, 0.72);
+  font-size: 0.9rem;
 }
 
 .reveal {
@@ -697,7 +792,7 @@ p {
   }
 
   .gallery-item {
-    flex-basis: calc((100% - 1rem) / 2);
+    flex-basis: calc((100% - 1.15rem) / 2);
   }
 
   .form-grid {
@@ -730,7 +825,12 @@ p {
   }
 
   .section {
-    padding: 2rem;
+    margin: 2.75rem auto;
+    padding: 2.2rem;
+  }
+
+  .rsvp-form {
+    padding: 1.25rem;
   }
 }
 

@@ -95,7 +95,9 @@ function setupGalleryCarousel() {
   const items = Array.from(carousel.querySelectorAll(".gallery-item"));
   const prevBtn = carousel.querySelector(".gallery-arrow-prev");
   const nextBtn = carousel.querySelector(".gallery-arrow-next");
+  const dotsContainer = document.querySelector(".gallery-dots");
   let currentIndex = 0;
+  let lastVisibleItems = 0;
 
   if (!track || !prevBtn || !nextBtn || items.length === 0) {
     return;
@@ -105,9 +107,52 @@ function setupGalleryCarousel() {
     return window.matchMedia("(min-width: 760px)").matches ? 2 : 1;
   }
 
+  function getPageCount(visibleItems) {
+    return Math.ceil(items.length / visibleItems);
+  }
+
+  function renderDots(visibleItems) {
+    if (!dotsContainer) {
+      return;
+    }
+
+    const pageCount = getPageCount(visibleItems);
+    dotsContainer.innerHTML = Array.from({ length: pageCount }, (_, index) => (
+      `<button class="gallery-dot" type="button" aria-label="Ir al grupo de fotos ${index + 1}"></button>`
+    )).join("");
+
+    dotsContainer.querySelectorAll(".gallery-dot").forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        const maxIndex = Math.max(items.length - visibleItems, 0);
+        currentIndex = Math.min(index * visibleItems, maxIndex);
+        updateCarousel();
+      });
+    });
+  }
+
+  function updateDots(visibleItems) {
+    if (!dotsContainer) {
+      return;
+    }
+
+    const dots = Array.from(dotsContainer.querySelectorAll(".gallery-dot"));
+    const activePage = Math.floor(currentIndex / visibleItems);
+
+    dots.forEach((dot, index) => {
+      const isActive = index === activePage;
+      dot.classList.toggle("active", isActive);
+      dot.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  }
+
   function updateCarousel() {
     const visibleItems = getVisibleItems();
     const maxIndex = Math.max(items.length - visibleItems, 0);
+    if (visibleItems !== lastVisibleItems) {
+      renderDots(visibleItems);
+      lastVisibleItems = visibleItems;
+    }
+
     currentIndex = Math.min(currentIndex, maxIndex);
 
     const itemWidth = items[0].getBoundingClientRect().width;
@@ -117,6 +162,7 @@ function setupGalleryCarousel() {
     track.style.transform = `translateX(-${offset}px)`;
     prevBtn.disabled = items.length <= visibleItems;
     nextBtn.disabled = items.length <= visibleItems;
+    updateDots(visibleItems);
   }
 
   prevBtn.addEventListener("click", () => {
@@ -211,7 +257,7 @@ function validateRsvpForm(formData, selectedGuest, selectedCompanionNames, missi
   }
 
   if (!phone) {
-    return "Por favor confirma tu teléfono / WhatsApp.";
+    return "Por favor confirma tu celular.";
   }
 
   if (missingGenericNames.length > 0) {

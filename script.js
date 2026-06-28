@@ -165,8 +165,16 @@ function parseGuestNames(value) {
     .filter(Boolean);
 }
 
-function normalizeName(value) {
-  return value.trim().toLocaleLowerCase("es");
+function normalizeText(value) {
+  return value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/ñ/g, "__enie__")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/__enie__/g, "ñ")
+    .replace(/\s+/g, " ");
 }
 
 function escapeHtml(value) {
@@ -217,15 +225,13 @@ function validateRsvpForm(formData, selectedGuest, selectedCompanionNames, missi
   return "";
 }
 
-async function findWeddingGuest(fullName) {
+async function fetchWeddingGuests() {
   const params = new URLSearchParams({
-    select: "id,full_name,allowed_guests_count,guest_names,phone,email",
-    full_name: `ilike.${fullName}`,
-    limit: "1"
+    select: "id,full_name,allowed_guests_count,guest_names,phone,email"
   });
 
   const url = `${WEDDING_GUESTS_ENDPOINT}?${params.toString()}`;
-  console.log("URL búsqueda wedding_guests.full_name:", url);
+  console.log("URL búsqueda wedding_guests:", url);
 
   const response = await fetch(url, {
     method: "GET",
@@ -240,38 +246,41 @@ async function findWeddingGuest(fullName) {
   }
 
   const guests = await response.json();
-  console.log("Resultado búsqueda invitado principal:", guests);
-  return guests.find((guest) => normalizeName(guest.full_name || "") === normalizeName(fullName)) || null;
+  console.log("Registros wedding_guests obtenidos:", guests);
+  return guests;
 }
 
-async function findWeddingGuestByCompanionName(fullName) {
-  const params = new URLSearchParams({
-    select: "id,full_name,guest_names",
-    guest_names: `ilike.%${fullName}%`,
-    limit: "10"
-  });
+function findWeddingGuest(fullName, guests) {
+  const normalizedFullName = normalizeText(fullName);
+  console.log("Buscando invitado principal normalizado:", normalizedFullName);
 
-  const url = `${WEDDING_GUESTS_ENDPOINT}?${params.toString()}`;
-  console.log("URL búsqueda wedding_guests.guest_names:", url);
-
-  const response = await fetch(url, {
-    method: "GET",
-    headers: SUPABASE_HEADERS
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Error Supabase al buscar acompañante:", response.status, response.statusText, errorText);
-    logSupabasePolicyHint(response, errorText);
-    throw new Error(errorText || "No se pudo buscar el acompañante.");
+  const exactMatch = guests.find((guest) => normalizeText(guest.full_name || "") === normalizedFullName);
+  if (exactMatch) {
+    console.log("Coincidencia exacta en full_name:", exactMatch);
+    return exactMatch;
   }
 
-  const guests = await response.json();
-  console.log("Resultado búsqueda en guest_names:", guests);
-  return guests.find((guest) =>
+  const partialMatch = guests.find((guest) => normalizeText(guest.full_name || "").includes(normalizedFullName));
+  if (partialMatch) {
+    console.log("Coincidencia parcial en full_name:", partialMatch);
+    return partialMatch;
+  }
+
+  console.log("No se encontró coincidencia en full_name.");
+  return null;
+}
+
+function findWeddingGuestByCompanionName(fullName, guests) {
+  const normalizedFullName = normalizeText(fullName);
+  console.log("Buscando acompañante normalizado:", normalizedFullName);
+
+  const companionGuest = guests.find((guest) =>
     parseGuestNames((guest.guest_names || "").toString())
-      .some((guestName) => normalizeName(guestName) === normalizeName(fullName))
+      .some((guestName) => normalizeText(guestName) === normalizedFullName)
   ) || null;
+
+  console.log("Resultado búsqueda en guest_names:", companionGuest);
+  return companionGuest;
 }
 
 async function hasExistingConfirmation(fullName) {
@@ -476,9 +485,10 @@ function setupRsvpForm() {
     searchBtn.textContent = "Buscando...";
 
     try {
-      const guest = await findWeddingGuest(fullName);
+      const guests = await fetchWeddingGuests();
+      const guest = findWeddingGuest(fullName, guests);
       if (!guest) {
-        const companionGuest = await findWeddingGuestByCompanionName(fullName);
+        const companionGuest = findWeddingGuestByCompanionName(fullName, guests);
         if (companionGuest) {
           clearGuestLookup();
           alert(`Usted está asignado al invitado ${companionGuest.full_name}, por favor buscar con ese nombre para confirmar.`);
@@ -487,7 +497,7 @@ function setupRsvpForm() {
         }
 
         clearGuestLookup();
-        setFeedback("No encontramos tu nombre en la lista de invitados, prueba de otra manera, escríbelo como está en tú invitación.", "error");
+        setFeedback("No encontramos tu nombre en la lista de invitados.", "error");
         return;
       }
 

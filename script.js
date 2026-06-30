@@ -183,6 +183,44 @@ function setupGalleryCarousel() {
   updateCarousel();
 }
 
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.setAttribute("readonly", "");
+  textArea.style.position = "fixed";
+  textArea.style.top = "-999px";
+  textArea.style.left = "-999px";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  document.execCommand("copy");
+  textArea.remove();
+}
+
+function setupGiftAccountCopy() {
+  const copyButton = document.querySelector("[data-copy-account]");
+  const feedback = document.querySelector(".gift-copy-feedback");
+
+  if (!copyButton || !feedback) {
+    return;
+  }
+
+  copyButton.addEventListener("click", async () => {
+    try {
+      await copyTextToClipboard(copyButton.dataset.copyAccount || "");
+      feedback.textContent = "Número de cuenta copiado";
+    } catch (error) {
+      feedback.textContent = "No se pudo copiar. Inténtalo nuevamente.";
+      console.error(error);
+    }
+  });
+}
+
 function setFeedback(message, type) {
   const feedbackEl = document.getElementById("rsvp-feedback");
   if (!feedbackEl) {
@@ -657,5 +695,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
   setupMobileMenu();
   setupGalleryCarousel();
+  setupGiftAccountCopy();
   setupRsvpForm();
 });

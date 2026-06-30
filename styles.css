@@ -447,6 +447,94 @@ p {
   object-fit: contain;
 }
 
+.gift-section {
+  background:
+    radial-gradient(circle at top left, rgba(199, 168, 107, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(251, 247, 240, 0.94) 100%);
+  text-align: center;
+}
+
+.gift-intro {
+  display: grid;
+  gap: 0.65rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.gift-card {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.85rem;
+  max-width: 520px;
+  margin: 1.45rem auto 0;
+  padding: 1.45rem 1.1rem;
+  border: 1px solid rgba(199, 168, 107, 0.34);
+  border-radius: var(--radius-md);
+  background: rgba(255, 253, 249, 0.94);
+  box-shadow: 0 12px 28px rgba(70, 52, 38, 0.11);
+}
+
+.gift-card::before {
+  content: "";
+  position: absolute;
+  inset: 0.55rem;
+  border: 1px solid rgba(154, 161, 123, 0.22);
+  border-radius: calc(var(--radius-md) - 4px);
+  pointer-events: none;
+}
+
+.gift-icon {
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(199, 168, 107, 0.16);
+  color: var(--earth);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.gift-details {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.2rem;
+  color: var(--text-muted);
+}
+
+.gift-bank,
+.gift-account {
+  color: var(--deep-earth);
+  font-weight: 600;
+}
+
+.gift-account {
+  font-size: 1.08rem;
+  letter-spacing: 0.04em;
+}
+
+.gift-copy-button {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.15rem;
+  padding: 0.62rem 1rem;
+  font-size: 0.88rem;
+}
+
+.gift-copy-feedback {
+  position: relative;
+  z-index: 1;
+  min-height: 1.35rem;
+  color: #2f6c3b;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
 .rsvp-form {
   margin-top: 1.15rem;
   border: 1px solid var(--line);

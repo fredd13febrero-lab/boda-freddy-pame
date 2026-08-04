@@ -4,7 +4,7 @@
   const MAX_IMAGE_SIDE = 1600;
   const JPEG_QUALITY = 0.75;
   const EVENT_DATE = "2026-08-08";
-  const BUCKET_NAME = "Wedding-photos";
+  const PHOTO_BUCKET = "Wedding-photos";
   const EVENT_FOLDER = "event";
   const STATUS = {
     pending: "Pendiente",
@@ -36,6 +36,17 @@
       SUPABASE_ANON_KEY
     );
     return supabaseClient;
+  }
+
+  function isBucketNotFoundError(error) {
+    const errorText = [
+      error && error.message,
+      error && error.error,
+      error && error.statusCode,
+      error && error.name
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    return errorText.includes("bucket not found") || errorText.includes("not_found") || errorText.includes("404");
   }
 
   function formatBytes(bytes) {
@@ -380,11 +391,12 @@
       setPhotoStatus(item.id, STATUS.processing);
       const processedFile = await processImage(originalFile);
       const storagePath = createStoragePath(processedFile);
+      console.log("Bucket utilizado:", PHOTO_BUCKET);
       console.log("Storage path:", storagePath);
 
       setPhotoStatus(item.id, STATUS.uploading);
       const { data: storageData, error: storageError } = await client.storage
-        .from(BUCKET_NAME)
+        .from(PHOTO_BUCKET)
         .upload(storagePath, processedFile, {
           cacheControl: "3600",
           upsert: false,
@@ -393,12 +405,16 @@
 
       console.log("Resultado Storage:", storageData);
       if (storageError) {
-        console.error("Error Storage:", storageError);
+        console.error("Error Storage completo:", storageError);
+        if (isBucketNotFoundError(storageError)) {
+          setPhotoStatus(item.id, STATUS.error, "No se encontró el almacenamiento de fotografías. Revisa la configuración.");
+          return false;
+        }
         throw storageError;
       }
 
       const { data: publicUrlData } = client.storage
-        .from(BUCKET_NAME)
+        .from(PHOTO_BUCKET)
         .getPublicUrl(storagePath);
       const publicUrl = publicUrlData.publicUrl;
       console.log("URL pública:", publicUrl);
@@ -421,7 +437,7 @@
         .insert(metadataPayload);
 
       if (metadataError) {
-        console.error("Error metadatos:", metadataError);
+        console.error("Error metadatos completo:", metadataError);
         console.error("Storage path con metadatos fallidos:", storagePath);
         setPhotoStatus(item.id, STATUS.error, "El archivo se subio, pero no se pudo registrar. Avisanos para revisarlo.");
         return false;
@@ -588,23 +604,29 @@
     try {
       const { data: galleryData, error: galleryError } = await getSupabaseClient()
         .from("wedding_photo_uploads")
-        .select("id, public_url, uploader_name, message, created_at")
+        .select(`
+          id,
+          public_url,
+          uploader_name,
+          message,
+          created_at
+        `)
         .eq("is_approved", true)
         .order("created_at", { ascending: false });
 
       if (galleryError) {
-        console.error("Error galería:", galleryError);
+        console.error("Error galería completo:", galleryError);
         if (status) {
           status.textContent = "No pudimos actualizar la galería en este momento.";
         }
         return;
       }
 
-      console.log("Galería aprobada:", galleryData);
+      console.log("Galería cargada:", galleryData);
       galleryPhotos = galleryData || [];
       renderGallery();
     } catch (error) {
-      console.error("Error galería:", error);
+      console.error("Error galería completo:", error);
       if (status) {
         status.textContent = "No pudimos actualizar la galería en este momento.";
       }

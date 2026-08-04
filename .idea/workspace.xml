@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="f0668df7-8906-4a8f-b5e5-c9d9bd353db8" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,7 +67,7 @@
       <workItem from="1781820033753" duration="2000" />
       <workItem from="1782092989729" duration="5503000" />
       <workItem from="1783540625499" duration="801000" />
-      <workItem from="1785807964930" duration="3332000" />
+      <workItem from="1785807964930" duration="3721000" />
     </task>
     <task id="LOCAL-00001" summary="Test commit">
       <option name="closed" value="true" />
@@ -393,7 +389,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785808060240</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Añadir fotos">
+      <option name="closed" value="true" />
+      <created>1785811894990</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1785811894990</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,7 +407,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="tamano" />
     <MESSAGE value="fotos1" />
     <MESSAGE value="Tamano_foto" />
     <MESSAGE value="finalhoy" />
@@ -428,7 +431,8 @@
     <MESSAGE value="regreso" />
     <MESSAGE value="regalo" />
     <MESSAGE value="cambio pastel x humitas" />
-    <option name="LAST_COMMIT_MESSAGE" value="cambio pastel x humitas" />
+    <MESSAGE value="Añadir fotos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Añadir fotos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -4,7 +4,7 @@
   const MAX_IMAGE_SIDE = 1600;
   const JPEG_QUALITY = 0.75;
   const EVENT_DATE = "2026-08-08";
-  const BUCKET_NAME = "wedding-photos";
+  const BUCKET_NAME = "Wedding-photos";
   const EVENT_FOLDER = "event";
   const STATUS = {
     pending: "Pendiente",

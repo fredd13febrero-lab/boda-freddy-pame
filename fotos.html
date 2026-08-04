@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Comparte y mira las fotografías aprobadas de los invitados de la boda de Pame y Freddy.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Comparte tus fotos | Boda Pame & Freddy">
+  <meta property="og:description" content="Sube las fotos que captures durante la boda de Pame y Freddy y mira la galería compartida después de su revisión.">
+  <meta property="og:image" content="assets/foto-principal.jpg">
+  <meta property="og:locale" content="es_EC">
+  <title>Comparte tus fotos | Boda Pame & Freddy</title>
+  <link rel="icon" type="image/png" href="assets/Cod_vestimenta.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="fotos.css">
+</head>
+<body class="photos-page">
+  <header class="topbar">
+    <a class="brand brand-link" href="index.html">Pame & Freddy</a>
+    <nav class="photos-nav" aria-label="Navegación de fotos">
+      <a href="index.html">Invitación</a>
+      <a href="#subir">Subir fotos</a>
+      <a href="#galeria-invitados">Galería</a>
+    </nav>
+  </header>
+
+  <main class="photos-main">
+    <section class="photos-hero reveal" aria-labelledby="photos-title">
+      <p class="section-kicker">Boda Pame & Freddy</p>
+      <h1 id="photos-title">Comparte tus recuerdos</h1>
+      <p class="photos-lead">Queremos guardar este día también desde tu mirada. Comparte con nosotros las fotografías que tomes durante la celebración.</p>
+      <p class="photos-note">Después de revisarlas, las fotografías aparecerán en nuestra galería compartida.</p>
+    </section>
+
+    <section class="section reveal photos-panel" id="subir" aria-labelledby="upload-title">
+      <div class="section-heading-row">
+        <div>
+          <p class="section-kicker">Recuerdos</p>
+          <h2 id="upload-title">Sube tus fotografías</h2>
+        </div>
+        <p id="selectedCount" class="selected-count" aria-live="polite">0 fotografías seleccionadas</p>
+      </div>
+
+      <form id="photoUploadForm" class="photo-upload-form" novalidate>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="uploaderName">Tu nombre</label>
+            <input id="uploaderName" name="uploaderName" type="text" autocomplete="name" placeholder="¿Quién comparte estas fotografías?">
+          </div>
+          <div class="form-field">
+            <label for="photoMessage">Déjanos un mensaje</label>
+            <textarea id="photoMessage" name="photoMessage" rows="4" maxlength="250"></textarea>
+          </div>
+        </div>
+
+        <div class="file-picker">
+          <label class="btn btn-secondary file-picker-button" for="photoFiles">Seleccionar fotografías</label>
+          <input id="photoFiles" name="photoFiles" class="sr-only-file" type="file" multiple accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/*">
+          <p class="file-help">Hasta 20 imágenes por envío. Máximo 10 MB por archivo original.</p>
+        </div>
+
+        <div id="photoPreviewList" class="photo-preview-list" aria-live="polite"></div>
+
+        <div class="upload-progress" aria-label="Progreso general de carga">
+          <div class="upload-progress-bar">
+            <span id="uploadProgressFill"></span>
+          </div>
+          <p id="uploadProgressText">0 de 0 fotografías finalizadas</p>
+        </div>
+
+        <div class="upload-actions">
+          <button id="uploadButton" type="submit" class="btn btn-primary">Subir fotografías</button>
+          <div class="upload-feedback-box" aria-live="polite">
+            <p id="uploadFeedback" class="form-feedback"></p>
+            <p id="uploadFeedbackDetail" class="upload-feedback-detail"></p>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="section reveal photos-panel" id="galeria-invitados" aria-labelledby="guest-gallery-title">
+      <div class="section-heading-row">
+        <div>
+          <p class="section-kicker">Galería compartida</p>
+          <h2 id="guest-gallery-title">Galería de invitados</h2>
+        </div>
+        <button id="refreshGallery" type="button" class="btn btn-secondary">Actualizar galería</button>
+      </div>
+
+      <p id="galleryStatus" class="gallery-status" aria-live="polite"></p>
+      <div id="guestGallery" class="guest-gallery" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true" aria-label="Fotografía ampliada" hidden>
+    <button id="lightboxClose" class="lightbox-button lightbox-close" type="button" aria-label="Cerrar">×</button>
+    <button id="lightboxPrev" class="lightbox-button lightbox-prev" type="button" aria-label="Fotografía anterior">‹</button>
+    <figure class="lightbox-figure">
+      <img id="lightboxImage" src="" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+    <button id="lightboxNext" class="lightbox-button lightbox-next" type="button" aria-label="Fotografía siguiente">›</button>
+  </div>
+
+  <footer class="footer">
+    <p class="footer-names">Pame & Freddy</p>
+    <p>Gracias por compartir este día con nosotros.</p>
+    <p class="footer-date">8 de agosto de 2026 · Atuntaqui, Ecuador</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+  <script src="fotos.js"></script>
+</body>
+</html>
